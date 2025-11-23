@@ -7,7 +7,7 @@ sdk: gradio
 sdk_version: 5.49.1
 app_file: app.py
 pinned: true
-short_description: AI-powered persona storytelling engine for UX, product, and design teams.
+short_description: AI-powered persona storytelling engine for enterprise.
 tags:
     - mcp-hackathon
     - building-mcp-track-enterprise
