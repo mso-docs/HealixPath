@@ -1,0 +1,1472 @@
+[
+  {
+    "id": "persona-001",
+    "name": "Alicia Ramirez",
+    "age": 34,
+    "gender": "Female",
+    "location": {
+      "address": "872 Palm Crest Ave",
+      "city": "San Diego",
+      "state": "CA",
+      "country": "USA"
+    },
+    "demographics": {
+      "income": "$95,000/year",
+      "education_level": "Bachelor's Degree in Marketing",
+      "marital_status": "Married",
+      "household_size": 3
+    },
+    "job": {
+      "title": "Senior Marketing Manager",
+      "industry": "E-commerce",
+      "experience_years": 10,
+      "employment_type": "Full-time"
+    },
+    "background": "Alicia manages digital marketing teams and coordinates multi-channel brand campaigns.",
+    "interests": ["online shopping", "home decor", "pilates", "productivity apps"],
+    "purchasing_habits": {
+      "online_shopping_frequency": "Weekly",
+      "preferred_platforms": ["Amazon", "Etsy", "Target"],
+      "average_spend_per_month": "$350",
+      "brand_loyalty_level": "High"
+    },
+    "technology": {
+      "tech_literacy": "High",
+      "devices_used": ["iPhone 15", "MacBook Pro"],
+      "favorite_apps": ["Notion", "Instagram", "Shopify"]
+    },
+    "goals": {
+      "primary_goals": ["Save time shopping", "Get curated product recommendations"],
+      "secondary_goals": ["Track expenses", "Stay informed on trends"]
+    },
+    "pain_points": ["Too many apps", "Hard to track household purchases"],
+    "motivations": ["Convenience", "Time savings"],
+    "personality": {
+      "traits": ["organized", "analytical"],
+      "communication_style": "Concise and visual"
+    },
+    "user_story": "As a busy professional, I want curated product recommendations so I can save time.",
+    "acceptance_criteria": ["AI filters products based on habits", "Shows savings and summaries"]
+  },
+  {
+    "id": "persona-002",
+    "name": "Marcus Chen",
+    "age": 28,
+    "gender": "Male",
+    "location": {
+      "address": "1440 Alder Street",
+      "city": "Portland",
+      "state": "OR",
+      "country": "USA"
+    },
+    "demographics": {
+      "income": "$72,000/year",
+      "education_level": "Bachelor's Degree in Computer Science",
+      "marital_status": "Single",
+      "household_size": 1
+    },
+    "job": {
+      "title": "Frontend Developer",
+      "industry": "Tech",
+      "experience_years": 5,
+      "employment_type": "Full-time"
+    },
+    "background": "Marcus builds web interfaces and experiments with AI tooling.",
+    "interests": ["gaming", "coding side-projects", "coffee brewing"],
+    "purchasing_habits": {
+      "online_shopping_frequency": "Monthly",
+      "preferred_platforms": ["Newegg", "Amazon"],
+      "average_spend_per_month": "$200",
+      "brand_loyalty_level": "Medium"
+    },
+    "technology": {
+      "tech_literacy": "Very High",
+      "devices_used": ["Custom PC", "Android phone"],
+      "favorite_apps": ["VSCode", "Discord", "Notion"]
+    },
+    "goals": {
+      "primary_goals": ["Find tools to boost productivity"],
+      "secondary_goals": ["Stay ahead of tech trends"]
+    },
+    "pain_points": ["Information overload", "Decision fatigue"],
+    "motivations": ["Efficiency", "Innovation"],
+    "personality": {
+      "traits": ["curious", "introverted"],
+      "communication_style": "Technical and detailed"
+    },
+    "user_story": "As a developer, I want clear product comparisons so I can choose tools faster.",
+    "acceptance_criteria": ["Side-by-side comparisons", "Technical breakdowns"]
+  },
+  {
+    "id": "persona-003",
+    "name": "Priya Kapoor",
+    "age": 42,
+    "gender": "Female",
+    "location": {
+      "address": "92 Hillcrest Road",
+      "city": "Toronto",
+      "state": "ON",
+      "country": "Canada"
+    },
+    "demographics": {
+      "income": "$130,000/year",
+      "education_level": "MBA",
+      "marital_status": "Married",
+      "household_size": 4
+    },
+    "job": {
+      "title": "Director of Operations",
+      "industry": "Healthcare",
+      "experience_years": 15,
+      "employment_type": "Full-time"
+    },
+    "background": "Priya oversees complex operational systems and values efficiency.",
+    "interests": ["yoga", "health tech", "travel"],
+    "purchasing_habits": {
+      "online_shopping_frequency": "Weekly",
+      "preferred_platforms": ["Well.ca", "Amazon"],
+      "average_spend_per_month": "$500",
+      "brand_loyalty_level": "High"
+    },
+    "technology": {
+      "tech_literacy": "Moderate",
+      "devices_used": ["iPhone", "Surface Pro"],
+      "favorite_apps": ["LinkedIn", "Google Calendar"]
+    },
+    "goals": {
+      "primary_goals": ["Simplify health management"],
+      "secondary_goals": ["Reduce stress"]
+    },
+    "pain_points": ["Complicated interfaces", "Time-consuming research"],
+    "motivations": ["Clarity", "Well-being"],
+    "personality": {
+      "traits": ["decisive", "strategic"],
+      "communication_style": "Professional and direct"
+    },
+    "user_story": "As a busy director, I want simple overviews so I can understand solutions quickly.",
+    "acceptance_criteria": ["Clear UI", "Concise summaries"]
+  },
+  {
+    "id": "persona-004",
+    "name": "Jamal Whitaker",
+    "age": 31,
+    "gender": "Male",
+    "location": {
+      "address": "555 Hamilton Street",
+      "city": "Atlanta",
+      "state": "GA",
+      "country": "USA"
+    },
+    "demographics": {
+      "income": "$58,000/year",
+      "education_level": "Associate Degree",
+      "marital_status": "Single",
+      "household_size": 2
+    },
+    "job": {
+      "title": "Customer Support Specialist",
+      "industry": "Fintech",
+      "experience_years": 6,
+      "employment_type": "Full-time"
+    },
+    "background": "Jamal assists users with payment and fintech tools.",
+    "interests": ["sneaker collecting", "hip-hop", "streaming"],
+    "purchasing_habits": {
+      "online_shopping_frequency": "Monthly",
+      "preferred_platforms": ["StockX", "Nike"],
+      "average_spend_per_month": "$250",
+      "brand_loyalty_level": "Medium"
+    },
+    "technology": {
+      "tech_literacy": "Moderate",
+      "devices_used": ["Android phone", "Xbox"],
+      "favorite_apps": ["TikTok", "Cash App"]
+    },
+    "goals": {
+      "primary_goals": ["Find good deals fast"],
+      "secondary_goals": ["Avoid scams"]
+    },
+    "pain_points": ["Slow websites", "Unclear pricing"],
+    "motivations": ["Value", "Authenticity"],
+    "personality": {
+      "traits": ["friendly", "practical"],
+      "communication_style": "Casual and simple"
+    },
+    "user_story": "As a collector, I want trustworthy deals so I don't waste time or money.",
+    "acceptance_criteria": ["Price verification", "Authenticity checks"]
+  },
+  {
+    "id": "persona-005",
+    "name": "Elena Petrova",
+    "age": 26,
+    "gender": "Female",
+    "location": {
+      "address": "22 Vasiliev Street",
+      "city": "Sofia",
+      "state": "Sofia",
+      "country": "Bulgaria"
+    },
+    "demographics": {
+      "income": "$32,000/year",
+      "education_level": "Bachelor's Degree in Design",
+      "marital_status": "Single",
+      "household_size": 1
+    },
+    "job": {
+      "title": "Freelance Graphic Designer",
+      "industry": "Creative",
+      "experience_years": 3,
+      "employment_type": "Freelance"
+    },
+    "background": "Elena designs branding for small businesses and creators.",
+    "interests": ["art", "photography", "travel blogs"],
+    "purchasing_habits": {
+      "online_shopping_frequency": "Weekly",
+      "preferred_platforms": ["Etsy", "Adobe Marketplace"],
+      "average_spend_per_month": "$120",
+      "brand_loyalty_level": "Low"
+    },
+    "technology": {
+      "tech_literacy": "High",
+      "devices_used": ["MacBook Air", "iPad Pro"],
+      "favorite_apps": ["Figma", "Pinterest", "Behance"]
+    },
+    "goals": {
+      "primary_goals": ["Find creative inspiration"],
+      "secondary_goals": ["Buy high-quality tools affordably"]
+    },
+    "pain_points": ["High software prices", "Subscription fatigue"],
+    "motivations": ["Creativity", "Affordability"],
+    "personality": {
+      "traits": ["imaginative", "independent"],
+      "communication_style": "Visual and expressive"
+    },
+    "user_story": "As a designer, I want affordable creative tools so I can expand my business.",
+    "acceptance_criteria": ["Clear pricing", "Tool recommendations"]
+  },
+  {
+    "id": "persona-006",
+    "name": "Derrick Simmons",
+    "age": 47,
+    "gender": "Male",
+    "location": {
+      "address": "901 Central Avenue",
+      "city": "Chicago",
+      "state": "IL",
+      "country": "USA"
+    },
+    "demographics": {
+      "income": "$110,000/year",
+      "education_level": "Bachelor's Degree",
+      "marital_status": "Divorced",
+      "household_size": 2
+    },
+    "job": {
+      "title": "Project Manager",
+      "industry": "Construction",
+      "experience_years": 20,
+      "employment_type": "Full-time"
+    },
+    "background": "Derrick oversees construction teams and workflow planning.",
+    "interests": ["DIY tools", "cars", "sports"],
+    "purchasing_habits": {
+      "online_shopping_frequency": "Bi-weekly",
+      "preferred_platforms": ["Home Depot", "Lowe's"],
+      "average_spend_per_month": "$400",
+      "brand_loyalty_level": "High"
+    },
+    "technology": {
+      "tech_literacy": "Low",
+      "devices_used": ["Samsung phone"],
+      "favorite_apps": ["YouTube", "Google Maps"]
+    },
+    "goals": {
+      "primary_goals": ["Find durable tools"],
+      "secondary_goals": ["Save time ordering materials"]
+    },
+    "pain_points": ["Complicated apps", "Product misinformation"],
+    "motivations": ["Reliability", "Quality"],
+    "personality": {
+      "traits": ["practical", "hardworking"],
+      "communication_style": "Straightforward"
+    },
+    "user_story": "As a project manager, I want reliable product info so I can avoid costly delays.",
+    "acceptance_criteria": ["Clear specs", "Trusted vendors"]
+  },
+  {
+    "id": "persona-007",
+    "name": "Sofia Alvarez",
+    "age": 22,
+    "gender": "Female",
+    "location": {
+      "address": "18 Calle Roja",
+      "city": "Madrid",
+      "state": "Madrid",
+      "country": "Spain"
+    },
+    "demographics": {
+      "income": "$18,000/year",
+      "education_level": "University Student",
+      "marital_status": "Single",
+      "household_size": 3
+    },
+    "job": {
+      "title": "Student",
+      "industry": "Education",
+      "experience_years": 1,
+      "employment_type": "Part-time"
+    },
+    "background": "Sofia studies psychology and works part-time at a café.",
+    "interests": ["fashion", "study apps", "social media"],
+    "purchasing_habits": {
+      "online_shopping_frequency": "Weekly",
+      "preferred_platforms": ["Zara", "Shein"],
+      "average_spend_per_month": "$80",
+      "brand_loyalty_level": "Low"
+    },
+    "technology": {
+      "tech_literacy": "High",
+      "devices_used": ["iPhone", "Laptop"],
+      "favorite_apps": ["TikTok", "Spotify", "Duolingo"]
+    },
+    "goals": {
+      "primary_goals": ["Stay organized for school"],
+      "secondary_goals": ["Find cheap stylish clothes"]
+    },
+    "pain_points": ["Budget limits", "Overwhelming choices"],
+    "motivations": ["Affordability", "Self-expression"],
+    "personality": {
+      "traits": ["energetic", "social"],
+      "communication_style": "Casual and emoji-heavy"
+    },
+    "user_story": "As a student, I want affordable recommendations so I can shop within my budget.",
+    "acceptance_criteria": ["Budget filters", "Style-based suggestions"]
+  },
+  {
+    "id": "persona-008",
+    "name": "Oliver Bennett",
+    "age": 55,
+    "gender": "Male",
+    "location": {
+      "address": "602 Brighton Lane",
+      "city": "London",
+      "state": "England",
+      "country": "UK"
+    },
+    "demographics": {
+      "income": "$150,000/year",
+      "education_level": "PhD in Economics",
+      "marital_status": "Married",
+      "household_size": 2
+    },
+    "job": {
+      "title": "Chief Financial Officer",
+      "industry": "Finance",
+      "experience_years": 25,
+      "employment_type": "Full-time"
+    },
+    "background": "Oliver manages financial strategy for a major fintech firm.",
+    "interests": ["golf", "history books", "fine dining"],
+    "purchasing_habits": {
+      "online_shopping_frequency": "Monthly",
+      "preferred_platforms": ["John Lewis", "Harrods"],
+      "average_spend_per_month": "$800",
+      "brand_loyalty_level": "Very High"
+    },
+    "technology": {
+      "tech_literacy": "Medium",
+      "devices_used": ["iPad", "iPhone"],
+      "favorite_apps": ["Financial Times", "Bloomberg"]
+    },
+    "goals": {
+      "primary_goals": ["Access accurate financial tools"],
+      "secondary_goals": ["Compare investment options"]
+    },
+    "pain_points": ["Complex UI", "Hidden fees"],
+    "motivations": ["Transparency", "Precision"],
+    "personality": {
+      "traits": ["analytical", "reserved"],
+      "communication_style": "Formal and data-driven"
+    },
+    "user_story": "As a CFO, I want transparent analytics so I can make informed decisions.",
+    "acceptance_criteria": ["Fee breakdowns", "Risk analysis"]
+  },
+  {
+    "id": "persona-009",
+    "name": "Hannah Schultz",
+    "age": 30,
+    "gender": "Female",
+    "location": {
+      "address": "11 Lindenstrasse",
+      "city": "Berlin",
+      "state": "Berlin",
+      "country": "Germany"
+    },
+    "demographics": {
+      "income": "$68,000/year",
+      "education_level": "Master's Degree",
+      "marital_status": "Engaged",
+      "household_size": 2
+    },
+    "job": {
+      "title": "UX Researcher",
+      "industry": "Tech",
+      "experience_years": 7,
+      "employment_type": "Full-time"
+    },
+    "background": "Hannah conducts user studies and usability tests.",
+    "interests": ["travel", "mindfulness", "cycling"],
+    "purchasing_habits": {
+      "online_shopping_frequency": "Bi-weekly",
+      "preferred_platforms": ["Zalando", "IKEA"],
+      "average_spend_per_month": "$150",
+      "brand_loyalty_level": "Medium"
+    },
+    "technology": {
+      "tech_literacy": "Very High",
+      "devices_used": ["MacBook Pro", "Pixel phone"],
+      "favorite_apps": ["Figma", "Miro", "Notion"]
+    },
+    "goals": {
+      "primary_goals": ["Improve personal productivity"],
+      "secondary_goals": ["Simplify travel planning"]
+    },
+    "pain_points": ["Cluttered UI", "Too many ads"],
+    "motivations": ["Usability", "Calm"],
+    "personality": {
+      "traits": ["empathetic", "observant"],
+      "communication_style": "Clear and human-centered"
+    },
+    "user_story": "As a UX researcher, I want intuitive tools so I can stay productive.",
+    "acceptance_criteria": ["Minimalist UI", "Reduced cognitive load"]
+  },
+  {
+    "id": "persona-010",
+    "name": "Daniel Oliveira",
+    "age": 37,
+    "gender": "Male",
+    "location": {
+      "address": "Rua Verde 212",
+      "city": "São Paulo",
+      "state": "SP",
+      "country": "Brazil"
+    },
+    "demographics": {
+      "income": "$40,000/year",
+      "education_level": "Bachelor's Degree",
+      "marital_status": "Married",
+      "household_size": 4
+    },
+    "job": {
+      "title": "Logistics Coordinator",
+      "industry": "Manufacturing",
+      "experience_years": 12,
+      "employment_type": "Full-time"
+    },
+    "background": "Daniel coordinates shipping and supply chain workflows.",
+    "interests": ["football", "barbecue", "mobile games"],
+    "purchasing_habits": {
+      "online_shopping_frequency": "Monthly",
+      "preferred_platforms": ["Mercado Livre"],
+      "average_spend_per_month": "$90",
+      "brand_loyalty_level": "Low"
+    },
+    "technology": {
+      "tech_literacy": "Medium",
+      "devices_used": ["Android phone"],
+      "favorite_apps": ["WhatsApp", "YouTube"]
+    },
+    "goals": {
+      "primary_goals": ["Save money"],
+      "secondary_goals": ["Find reliable local sellers"]
+    },
+    "pain_points": ["Slow delivery", "Price fluctuations"],
+    "motivations": ["Stability", "Good deals"],
+    "personality": {
+      "traits": ["practical", "family-oriented"],
+      "communication_style": "Simple and straightforward"
+    },
+    "user_story": "As a father, I want trustworthy affordable options so I can support my family.",
+    "acceptance_criteria": ["Low-cost recommendations", "Verified local sellers"]
+  },
+  {
+    "id": "persona-011",
+    "name": "Mei Tanaka",
+    "age": 29,
+    "gender": "Female",
+    "location": {
+      "address": "3-18 Sakura Lane",
+      "city": "Osaka",
+      "state": "Kansai",
+      "country": "Japan"
+    },
+    "demographics": {
+      "income": "$55,000/year",
+      "education_level": "Bachelor's Degree in Business",
+      "marital_status": "Single",
+      "household_size": 1
+    },
+    "job": {
+      "title": "Content Strategist",
+      "industry": "Media & Publishing",
+      "experience_years": 6,
+      "employment_type": "Full-time"
+    },
+    "background": "Mei creates online content strategies for lifestyle brands.",
+    "interests": ["photography", "indie fashion", "matcha cafes"],
+    "purchasing_habits": {
+      "online_shopping_frequency": "Weekly",
+      "preferred_platforms": ["Rakuten", "Uniqlo"],
+      "average_spend_per_month": "$180",
+      "brand_loyalty_level": "High"
+    },
+    "technology": {
+      "tech_literacy": "High",
+      "devices_used": ["iPhone", "MacBook Pro"],
+      "favorite_apps": ["LINE", "Instagram", "Notion"]
+    },
+    "goals": {
+      "primary_goals": ["Find new fashion inspirations"],
+      "secondary_goals": ["Manage work-life balance"]
+    },
+    "pain_points": ["Too many subscriptions", "Cluttered interfaces"],
+    "motivations": ["Aesthetics", "Simplicity"],
+    "personality": {
+      "traits": ["creative", "minimalist"],
+      "communication_style": "Short and visually oriented"
+    },
+    "user_story": "As a content strategist, I want aesthetic tools so I can create engaging visuals quickly.",
+    "acceptance_criteria": ["Clean visual UI", "Curated inspiration feed"]
+  },
+  {
+    "id": "persona-012",
+    "name": "Ethan Brooks",
+    "age": 40,
+    "gender": "Male",
+    "location": {
+      "address": "72 Greenview Road",
+      "city": "Denver",
+      "state": "CO",
+      "country": "USA"
+    },
+    "demographics": {
+      "income": "$85,000/year",
+      "education_level": "Bachelor's in Environmental Science",
+      "marital_status": "Married",
+      "household_size": 4
+    },
+    "job": {
+      "title": "Environmental Consultant",
+      "industry": "Sustainability",
+      "experience_years": 14,
+      "employment_type": "Full-time"
+    },
+    "background": "Ethan works with companies to reduce carbon footprints.",
+    "interests": ["hiking", "renewable energy", "electric vehicles"],
+    "purchasing_habits": {
+      "online_shopping_frequency": "Bi-weekly",
+      "preferred_platforms": ["REI", "Patagonia"],
+      "average_spend_per_month": "$250",
+      "brand_loyalty_level": "High"
+    },
+    "technology": {
+      "tech_literacy": "Medium",
+      "devices_used": ["iPhone", "Laptop"],
+      "favorite_apps": ["Strava", "Google Earth"]
+    },
+    "goals": {
+      "primary_goals": ["Adopt sustainable lifestyle products"],
+      "secondary_goals": ["Educate others about sustainability"]
+    },
+    "pain_points": ["Greenwashing", "Inconsistent product info"],
+    "motivations": ["Authenticity", "Environmental impact"],
+    "personality": {
+      "traits": ["ethical", "outdoorsy"],
+      "communication_style": "Friendly and educational"
+    },
+    "user_story": "As a sustainability expert, I want verified eco-friendly product recommendations.",
+    "acceptance_criteria": ["Eco-certifications", "Carbon footprint indicators"]
+  },
+  {
+    "id": "persona-013",
+    "name": "Fatima Al-Hassan",
+    "age": 33,
+    "gender": "Female",
+    "location": {
+      "address": "Villa 28 Palm District",
+      "city": "Dubai",
+      "state": "Dubai",
+      "country": "UAE"
+    },
+    "demographics": {
+      "income": "$120,000/year",
+      "education_level": "Master's Degree in Finance",
+      "marital_status": "Married",
+      "household_size": 5
+    },
+    "job": {
+      "title": "Investment Analyst",
+      "industry": "Finance",
+      "experience_years": 11,
+      "employment_type": "Full-time"
+    },
+    "background": "Fatima evaluates market trends and investment opportunities.",
+    "interests": ["luxury fashion", "crypto", "travel"],
+    "purchasing_habits": {
+      "online_shopping_frequency": "Weekly",
+      "preferred_platforms": ["Farfetch", "Bloomingdale's"],
+      "average_spend_per_month": "$1500",
+      "brand_loyalty_level": "Very High"
+    },
+    "technology": {
+      "tech_literacy": "High",
+      "devices_used": ["iPhone", "MacBook"],
+      "favorite_apps": ["Binance", "Bloomberg"]
+    },
+    "goals": {
+      "primary_goals": ["Grow her investment portfolio"],
+      "secondary_goals": ["Stay ahead of financial markets"]
+    },
+    "pain_points": ["Volatile markets", "Time-consuming research"],
+    "motivations": ["Wealth growth", "Prestige"],
+    "personality": {
+      "traits": ["confident", "strategic"],
+      "communication_style": "Formal and assertive"
+    },
+    "user_story": "As an investment analyst, I want concise financial insights so I can make decisions quickly.",
+    "acceptance_criteria": ["Real-time tracking", "Risk summaries"]
+  },
+  {
+    "id": "persona-014",
+    "name": "Carlos Mendes",
+    "age": 51,
+    "gender": "Male",
+    "location": {
+      "address": "Rua Das Flores 880",
+      "city": "Lisbon",
+      "state": "Lisbon",
+      "country": "Portugal"
+    },
+    "demographics": {
+      "income": "$60,000/year",
+      "education_level": "High School",
+      "marital_status": "Married",
+      "household_size": 3
+    },
+    "job": {
+      "title": "Taxi Driver",
+      "industry": "Transportation",
+      "experience_years": 25,
+      "employment_type": "Full-time"
+    },
+    "background": "Carlos drives tourists and locals around the city.",
+    "interests": ["football", "radio shows", "local cuisine"],
+    "purchasing_habits": {
+      "online_shopping_frequency": "Monthly",
+      "preferred_platforms": ["Amazon", "Fnac"],
+      "average_spend_per_month": "$60",
+      "brand_loyalty_level": "Low"
+    },
+    "technology": {
+      "tech_literacy": "Low",
+      "devices_used": ["Android phone"],
+      "favorite_apps": ["Google Maps", "WhatsApp"]
+    },
+    "goals": {
+      "primary_goals": ["Find reliable gear for his car"],
+      "secondary_goals": ["Save on expenses"]
+    },
+    "pain_points": ["Confusing apps", "Slow customer support"],
+    "motivations": ["Reliability", "Savings"],
+    "personality": {
+      "traits": ["patient", "down-to-earth"],
+      "communication_style": "Straightforward and practical"
+    },
+    "user_story": "As a driver, I want simple recommendations for car gear so I can maintain my vehicle easily.",
+    "acceptance_criteria": ["Clear product descriptions", "Trusted vendors"]
+  },
+  {
+    "id": "persona-015",
+    "name": "Nora Bergström",
+    "age": 24,
+    "gender": "Female",
+    "location": {
+      "address": "Skogsvägen 4",
+      "city": "Stockholm",
+      "state": "Stockholm",
+      "country": "Sweden"
+    },
+    "demographics": {
+      "income": "$45,000/year",
+      "education_level": "Bachelor's in Interaction Design",
+      "marital_status": "Single",
+      "household_size": 1
+    },
+    "job": {
+      "title": "Junior UI Designer",
+      "industry": "Tech",
+      "experience_years": 2,
+      "employment_type": "Full-time"
+    },
+    "background": "Nora designs user interfaces for mobile apps.",
+    "interests": ["minimalist decor", "coffee culture", "indie games"],
+    "purchasing_habits": {
+      "online_shopping_frequency": "Weekly",
+      "preferred_platforms": ["IKEA", "H&M"],
+      "average_spend_per_month": "$100",
+      "brand_loyalty_level": "Medium"
+    },
+    "technology": {
+      "tech_literacy": "Very High",
+      "devices_used": ["MacBook", "iPhone"],
+      "favorite_apps": ["Figma", "Spotify", "Slack"]
+    },
+    "goals": {
+      "primary_goals": ["Improve her design skills"],
+      "secondary_goals": ["Find stylish affordable furniture"]
+    },
+    "pain_points": ["Overcomplicated workflows", "Subscription creep"],
+    "motivations": ["Usability", "Aesthetics"],
+    "personality": {
+      "traits": ["analytical", "creative"],
+      "communication_style": "Clear and visual"
+    },
+    "user_story": "As a UI designer, I want sleek interfaces so I can stay productive and inspired.",
+    "acceptance_criteria": ["Minimalist UI", "Low cognitive load"]
+  },
+  {
+    "id": "persona-016",
+    "name": "James Holloway",
+    "age": 63,
+    "gender": "Male",
+    "location": {
+      "address": "45 Meadow Park",
+      "city": "Dublin",
+      "state": "Leinster",
+      "country": "Ireland"
+    },
+    "demographics": {
+      "income": "$70,000/year",
+      "education_level": "Bachelor's Degree",
+      "marital_status": "Widowed",
+      "household_size": 1
+    },
+    "job": {
+      "title": "Retired Airline Engineer",
+      "industry": "Aviation",
+      "experience_years": 35,
+      "employment_type": "Retired"
+    },
+    "background": "James previously maintained aircraft and now enjoys a quiet retired life.",
+    "interests": ["gardening", "aviation history", "woodworking"],
+    "purchasing_habits": {
+      "online_shopping_frequency": "Monthly",
+      "preferred_platforms": ["Amazon", "Gardener's Supply"],
+      "average_spend_per_month": "$90",
+      "brand_loyalty_level": "High"
+    },
+    "technology": {
+      "tech_literacy": "Low",
+      "devices_used": ["Tablet"],
+      "favorite_apps": ["YouTube", "Facebook"]
+    },
+    "goals": {
+      "primary_goals": ["Buy easy-to-use gardening tools"],
+      "secondary_goals": ["Learn new hobbies"]
+    },
+    "pain_points": ["Tech complexity", "Tiny text on apps"],
+    "motivations": ["Ease of use", "Comfort"],
+    "personality": {
+      "traits": ["patient", "curious"],
+      "communication_style": "Slow-paced and detailed"
+    },
+    "user_story": "As a retiree, I want simple guidance so I can shop for hobbies without confusion.",
+    "acceptance_criteria": ["Large text modes", "Clear tutorials"]
+  },
+  {
+    "id": "persona-017",
+    "name": "Lina Moretti",
+    "age": 48,
+    "gender": "Female",
+    "location": {
+      "address": "Via Della Pace 17",
+      "city": "Rome",
+      "state": "Lazio",
+      "country": "Italy"
+    },
+    "demographics": {
+      "income": "$82,000/year",
+      "education_level": "Master's Degree in Education",
+      "marital_status": "Divorced",
+      "household_size": 3
+    },
+    "job": {
+      "title": "School Administrator",
+      "industry": "Education",
+      "experience_years": 18,
+      "employment_type": "Full-time"
+    },
+    "background": "Lina manages school operations and student services.",
+    "interests": ["baking", "classical music", "museum visits"],
+    "purchasing_habits": {
+      "online_shopping_frequency": "Bi-weekly",
+      "preferred_platforms": ["Zalando", "Amazon"],
+      "average_spend_per_month": "$120",
+      "brand_loyalty_level": "Medium"
+    },
+    "technology": {
+      "tech_literacy": "Medium",
+      "devices_used": ["iPad", "iPhone"],
+      "favorite_apps": ["Kindle", "Google Classroom"]
+    },
+    "goals": {
+      "primary_goals": ["Find reliable organization tools"],
+      "secondary_goals": ["Balance work and home schedule"]
+    },
+    "pain_points": ["Too many notifications", "Hard-to-learn apps"],
+    "motivations": ["Stability", "Order"],
+    "personality": {
+      "traits": ["structured", "empathetic"],
+      "communication_style": "Warm and clear"
+    },
+    "user_story": "As an administrator, I want organized digital tools so I can manage my schedule easily.",
+    "acceptance_criteria": ["Calendar views", "Reminder system"]
+  },
+  {
+    "id": "persona-018",
+    "name": "Tariq Johnson",
+    "age": 19,
+    "gender": "Male",
+    "location": {
+      "address": "44 Pine Ridge Apartments",
+      "city": "Detroit",
+      "state": "MI",
+      "country": "USA"
+    },
+    "demographics": {
+      "income": "$12,000/year",
+      "education_level": "College Freshman",
+      "marital_status": "Single",
+      "household_size": 1
+    },
+    "job": {
+      "title": "Student / Part-time Retail",
+      "industry": "Retail",
+      "experience_years": 1,
+      "employment_type": "Part-time"
+    },
+    "background": "Tariq is studying computer graphics at a local college.",
+    "interests": ["gaming", "sneakers", "hip-hop"],
+    "purchasing_habits": {
+      "online_shopping_frequency": "Weekly",
+      "preferred_platforms": ["Nike", "StockX"],
+      "average_spend_per_month": "$70",
+      "brand_loyalty_level": "Low"
+    },
+    "technology": {
+      "tech_literacy": "High",
+      "devices_used": ["PS5", "Android"],
+      "favorite_apps": ["TikTok", "Snapchat"]
+    },
+    "goals": {
+      "primary_goals": ["Find good sneaker deals"],
+      "secondary_goals": ["Upgrade his gaming setup"]
+    },
+    "pain_points": ["Low budget", "Scalpers"],
+    "motivations": ["Style", "Status"],
+    "personality": {
+      "traits": ["energetic", "social"],
+      "communication_style": "Casual and slang-heavy"
+    },
+    "user_story": "As a student, I want affordable options so I can upgrade my gear without overspending.",
+    "acceptance_criteria": ["Budget suggestions", "Deal alerts"]
+  },
+  {
+    "id": "persona-019",
+    "name": "Helena Kowalski",
+    "age": 57,
+    "gender": "Female",
+    "location": {
+      "address": "84 Rynek Street",
+      "city": "Krakow",
+      "state": "Lesser Poland",
+      "country": "Poland"
+    },
+    "demographics": {
+      "income": "$50,000/year",
+      "education_level": "Bachelor's Degree",
+      "marital_status": "Married",
+      "household_size": 2
+    },
+    "job": {
+      "title": "Accountant",
+      "industry": "Finance",
+      "experience_years": 30,
+      "employment_type": "Full-time"
+    },
+    "background": "Helena manages financial records and audits.",
+    "interests": ["baking", "gardening", "local markets"],
+    "purchasing_habits": {
+      "online_shopping_frequency": "Monthly",
+      "preferred_platforms": ["Allegro", "Lidl Online"],
+      "average_spend_per_month": "$70",
+      "brand_loyalty_level": "High"
+    },
+    "technology": {
+      "tech_literacy": "Low",
+      "devices_used": ["Android phone"],
+      "favorite_apps": ["Facebook", "Banking apps"]
+    },
+    "goals": {
+      "primary_goals": ["Find reliable kitchen gear"],
+      "secondary_goals": ["Manage household finances easily"]
+    },
+    "pain_points": ["Hard-to-read interfaces", "Security concerns"],
+    "motivations": ["Trust", "Value"],
+    "personality": {
+      "traits": ["careful", "organized"],
+      "communication_style": "Detailed and cautious"
+    },
+    "user_story": "As an accountant, I want clear trustworthy product options so I can shop confidently.",
+    "acceptance_criteria": ["Verified reviews", "Security indicators"]
+  },
+  {
+    "id": "persona-020",
+    "name": "Samir Patel",
+    "age": 44,
+    "gender": "Male",
+    "location": {
+      "address": "10 Mango Grove",
+      "city": "Mumbai",
+      "state": "Maharashtra",
+      "country": "India"
+    },
+    "demographics": {
+      "income": "$25,000/year",
+      "education_level": "Associate Degree",
+      "marital_status": "Married",
+      "household_size": 5
+    },
+    "job": {
+      "title": "Small Business Owner",
+      "industry": "Retail",
+      "experience_years": 12,
+      "employment_type": "Self-employed"
+    },
+    "background": "Samir runs a local shop selling household goods.",
+    "interests": ["cricket", "budget tech", "street food"],
+    "purchasing_habits": {
+      "online_shopping_frequency": "Bi-weekly",
+      "preferred_platforms": ["Flipkart", "Amazon India"],
+      "average_spend_per_month": "$50",
+      "brand_loyalty_level": "Low"
+    },
+    "technology": {
+      "tech_literacy": "Medium",
+      "devices_used": ["Android phone"],
+      "favorite_apps": ["WhatsApp", "Paytm"]
+    },
+    "goals": {
+      "primary_goals": ["Buy affordable inventory"],
+      "secondary_goals": ["Save money for his family"]
+    },
+    "pain_points": ["Fake listings", "Price jumps"],
+    "motivations": ["Savings", "Trust"],
+    "personality": {
+      "traits": ["resourceful", "practical"],
+      "communication_style": "Direct and to the point"
+    },
+    "user_story": "As a shop owner, I want budget-friendly verified items so I can grow my business safely.",
+    "acceptance_criteria": ["Verified sellers", "Stable pricing"]
+  },
+  {
+    "id": "persona-021",
+    "name": "Amina Yusuf",
+    "age": 36,
+    "gender": "Female",
+    "location": {
+      "address": "45 Crescent Gardens",
+      "city": "Manchester",
+      "state": "England",
+      "country": "UK"
+    },
+    "demographics": {
+      "income": "$52,000/year",
+      "education_level": "Master's Degree in Social Work",
+      "marital_status": "Married",
+      "household_size": 4
+    },
+    "job": {
+      "title": "Social Worker",
+      "industry": "Public Services",
+      "experience_years": 12,
+      "employment_type": "Full-time"
+    },
+    "background": "Amina supports families and individuals through community programs.",
+    "interests": ["community volunteering", "baking", "reading"],
+    "purchasing_habits": {
+      "online_shopping_frequency": "Bi-weekly",
+      "preferred_platforms": ["Tesco", "ASOS"],
+      "average_spend_per_month": "$140",
+      "brand_loyalty_level": "Medium"
+    },
+    "technology": {
+      "tech_literacy": "Medium",
+      "devices_used": ["Samsung Phone", "Work Laptop"],
+      "favorite_apps": ["WhatsApp", "Kindle"]
+    },
+    "goals": {
+      "primary_goals": ["Support her family efficiently"],
+      "secondary_goals": ["Reduce stress in daily life"]
+    },
+    "pain_points": ["Expensive groceries", "Information overload"],
+    "motivations": ["Reliability", "Affordability"],
+    "personality": {
+      "traits": ["empathetic", "calm"],
+      "communication_style": "Warm and conversational"
+    },
+    "user_story": "As a social worker and mother, I want cost-effective recommendations so I can stay within budget.",
+    "acceptance_criteria": ["Budget shopping suggestions", "Price comparison tools"]
+  },
+  {
+    "id": "persona-022",
+    "name": "Logan Price",
+    "age": 27,
+    "gender": "Male",
+    "location": {
+      "address": "1280 North Ridge",
+      "city": "Seattle",
+      "state": "WA",
+      "country": "USA"
+    },
+    "demographics": {
+      "income": "$98,000/year",
+      "education_level": "Bachelor's in Computer Engineering",
+      "marital_status": "Engaged",
+      "household_size": 2
+    },
+    "job": {
+      "title": "Machine Learning Engineer",
+      "industry": "Tech / AI",
+      "experience_years": 5,
+      "employment_type": "Full-time"
+    },
+    "background": "Logan builds models for consumer-facing AI products.",
+    "interests": ["robotics", "mountain biking", "3D printing"],
+    "purchasing_habits": {
+      "online_shopping_frequency": "Weekly",
+      "preferred_platforms": ["Newegg", "Amazon"],
+      "average_spend_per_month": "$500",
+      "brand_loyalty_level": "Low"
+    },
+    "technology": {
+      "tech_literacy": "Very High",
+      "devices_used": ["Custom PC", "Pixel Phone"],
+      "favorite_apps": ["GitHub", "Hugging Face", "Reddit"]
+    },
+    "goals": {
+      "primary_goals": ["Optimize workflows"],
+      "secondary_goals": ["Experiment with new hardware"]
+    },
+    "pain_points": ["Hard-to-find reviews", "Unclear benchmarks"],
+    "motivations": ["Efficiency", "Innovation"],
+    "personality": {
+      "traits": ["logical", "curious"],
+      "communication_style": "Technical and brief"
+    },
+    "user_story": "As an ML engineer, I want technical product comparisons so I can pick hardware quickly.",
+    "acceptance_criteria": ["Benchmark charts", "Feature comparison tables"]
+  },
+  {
+    "id": "persona-023",
+    "name": "Rosa Delgado",
+    "age": 54,
+    "gender": "Female",
+    "location": {
+      "address": "18 Camino Verde",
+      "city": "Monterrey",
+      "state": "Nuevo León",
+      "country": "Mexico"
+    },
+    "demographics": {
+      "income": "$42,000/year",
+      "education_level": "High School Diploma",
+      "marital_status": "Married",
+      "household_size": 5
+    },
+    "job": {
+      "title": "Restaurant Manager",
+      "industry": "Food Service",
+      "experience_years": 25,
+      "employment_type": "Full-time"
+    },
+    "background": "Rosa manages staff, inventory, and customer service operations.",
+    "interests": ["cooking shows", "family outings", "local festivals"],
+    "purchasing_habits": {
+      "online_shopping_frequency": "Every 2 weeks",
+      "preferred_platforms": ["Mercado Libre"],
+      "average_spend_per_month": "$120",
+      "brand_loyalty_level": "High"
+    },
+    "technology": {
+      "tech_literacy": "Medium",
+      "devices_used": ["Android Phone"],
+      "favorite_apps": ["Facebook", "YouTube"]
+    },
+    "goals": {
+      "primary_goals": ["Keep restaurant equipment updated"],
+      "secondary_goals": ["Support family needs affordably"]
+    },
+    "pain_points": ["Long delivery times", "Fake equipment listings"],
+    "motivations": ["Reliability", "Fair pricing"],
+    "personality": {
+      "traits": ["responsible", "detail-oriented"],
+      "communication_style": "Direct and polite"
+    },
+    "user_story": "As a restaurant manager, I want reliable supplier recommendations so I can avoid bad purchases.",
+    "acceptance_criteria": ["Verified seller tags", "Fast shipping indicators"]
+  },
+  {
+    "id": "persona-024",
+    "name": "Iris Nguyen",
+    "age": 23,
+    "gender": "Female",
+    "location": {
+      "address": "222 Orchid Street",
+      "city": "Ho Chi Minh City",
+      "state": "HCMC",
+      "country": "Vietnam"
+    },
+    "demographics": {
+      "income": "$15,000/year",
+      "education_level": "University Graduate",
+      "marital_status": "Single",
+      "household_size": 3
+    },
+    "job": {
+      "title": "Digital Illustrator",
+      "industry": "Creative Arts",
+      "experience_years": 2,
+      "employment_type": "Freelance"
+    },
+    "background": "Iris creates character art for mobile games and indie teams.",
+    "interests": ["anime", "digital art tools", "mobile RPGs"],
+    "purchasing_habits": {
+      "online_shopping_frequency": "Weekly",
+      "preferred_platforms": ["Shopee", "ArtStation Market"],
+      "average_spend_per_month": "$60",
+      "brand_loyalty_level": "Low"
+    },
+    "technology": {
+      "tech_literacy": "High",
+      "devices_used": ["iPad Pro", "Laptop"],
+      "favorite_apps": ["Procreate", "Clip Studio Paint", "Twitter"]
+    },
+    "goals": {
+      "primary_goals": ["Buy affordable brushes and tools"],
+      "secondary_goals": ["Grow her freelance brand"]
+    },
+    "pain_points": ["Subscription fatigue", "Limited budget"],
+    "motivations": ["Creativity", "Affordability"],
+    "personality": {
+      "traits": ["imaginative", "introverted"],
+      "communication_style": "Casual and expressive"
+    },
+    "user_story": "As an illustrator, I want budget-friendly professional tools so I can improve my art.",
+    "acceptance_criteria": ["Low-cost bundles", "Quality reviews"]
+  },
+  {
+    "id": "persona-025",
+    "name": "Gabriel Johansson",
+    "age": 39,
+    "gender": "Male",
+    "location": {
+      "address": "14 Fjordvägen",
+      "city": "Bergen",
+      "state": "Vestland",
+      "country": "Norway"
+    },
+    "demographics": {
+      "income": "$90,000/year",
+      "education_level": "PhD in Marine Biology",
+      "marital_status": "Married",
+      "household_size": 4
+    },
+    "job": {
+      "title": "Research Scientist",
+      "industry": "Environmental Research",
+      "experience_years": 14,
+      "employment_type": "Full-time"
+    },
+    "background": "Gabriel studies ocean ecosystems and publishes academic work.",
+    "interests": ["sailing", "wildlife photography", "data visualization"],
+    "purchasing_habits": {
+      "online_shopping_frequency": "Monthly",
+      "preferred_platforms": ["Specialty science suppliers"],
+      "average_spend_per_month": "$400",
+      "brand_loyalty_level": "High"
+    },
+    "technology": {
+      "tech_literacy": "Very High",
+      "devices_used": ["MacBook", "DSLR camera"],
+      "favorite_apps": ["MATLAB", "RStudio"]
+    },
+    "goals": {
+      "primary_goals": ["Find reliable scientific instruments"],
+      "secondary_goals": ["Improve research efficiency"]
+    },
+    "pain_points": ["High equipment prices", "Long procurement times"],
+    "motivations": ["Accuracy", "Scientific integrity"],
+    "personality": {
+      "traits": ["methodical", "analytical"],
+      "communication_style": "Formal and precise"
+    },
+    "user_story": "As a marine biologist, I want accurate equipment recommendations so I can conduct research effectively.",
+    "acceptance_criteria": ["Technical specifications", "Peer-reviewed rating system"]
+  },
+  {
+    "id": "persona-026",
+    "name": "Bianca Rossi",
+    "age": 31,
+    "gender": "Female",
+    "location": {
+      "address": "Via Luna 88",
+      "city": "Florence",
+      "state": "Tuscany",
+      "country": "Italy"
+    },
+    "demographics": {
+      "income": "$65,000/year",
+      "education_level": "Master's in Fashion Design",
+      "marital_status": "Single",
+      "household_size": 1
+    },
+    "job": {
+      "title": "Fashion Designer",
+      "industry": "Fashion",
+      "experience_years": 7,
+      "employment_type": "Full-time"
+    },
+    "background": "Bianca designs boutique clothing and maintains an Instagram brand.",
+    "interests": ["handmade fashion", "fabric sourcing", "travel"],
+    "purchasing_habits": {
+      "online_shopping_frequency": "Weekly",
+      "preferred_platforms": ["Etsy", "Fabric.com"],
+      "average_spend_per_month": "$600",
+      "brand_loyalty_level": "Very High"
+    },
+    "technology": {
+      "tech_literacy": "Medium",
+      "devices_used": ["iPhone", "MacBook"],
+      "favorite_apps": ["Instagram", "Canva"]
+    },
+    "goals": {
+      "primary_goals": ["Find unique high-quality materials"],
+      "secondary_goals": ["Grow her online presence"]
+    },
+    "pain_points": ["Unreliable suppliers", "High shipping costs"],
+    "motivations": ["Quality", "Creativity"],
+    "personality": {
+      "traits": ["artistic", "ambitious"],
+      "communication_style": "Casual but expressive"
+    },
+    "user_story": "As a designer, I want trustworthy unique materials so I can create standout clothing.",
+    "acceptance_criteria": ["Supplier ratings", "Material authenticity indicators"]
+  },
+  {
+    "id": "persona-027",
+    "name": "Owen Clarke",
+    "age": 47,
+    "gender": "Male",
+    "location": {
+      "address": "Millstone Road 55",
+      "city": "Auckland",
+      "state": "North Island",
+      "country": "New Zealand"
+    },
+    "demographics": {
+      "income": "$78,000/year",
+      "education_level": "Bachelor's Degree",
+      "marital_status": "Married",
+      "household_size": 5
+    },
+    "job": {
+      "title": "IT Support Lead",
+      "industry": "IT Services",
+      "experience_years": 20,
+      "employment_type": "Full-time"
+    },
+    "background": "Owen manages a helpdesk team and troubleshooting workflows.",
+    "interests": ["barbecue", "rugby", "family road trips"],
+    "purchasing_habits": {
+      "online_shopping_frequency": "Bi-weekly",
+      "preferred_platforms": ["PBTech", "The Warehouse"],
+      "average_spend_per_month": "$200",
+      "brand_loyalty_level": "Medium"
+    },
+    "technology": {
+      "tech_literacy": "High",
+      "devices_used": ["Work Laptop", "Android Phone"],
+      "favorite_apps": ["Slack", "Gmail"]
+    },
+    "goals": {
+      "primary_goals": ["Find reliable tech tools"],
+      "secondary_goals": ["Support his team's productivity"]
+    },
+    "pain_points": ["Outdated device listings", "Slow documentation"],
+    "motivations": ["Reliability", "Efficiency"],
+    "personality": {
+      "traits": ["organized", "helpful"],
+      "communication_style": "Clear and instructional"
+    },
+    "user_story": "As an IT lead, I want reliable tool recommendations so I can equip my team properly.",
+    "acceptance_criteria": ["Device compatibility info", "Model-year filters"]
+  },
+  {
+    "id": "persona-028",
+    "name": "Chloe Harris",
+    "age": 18,
+    "gender": "Female",
+    "location": {
+      "address": "Summerfield Drive 12",
+      "city": "Sydney",
+      "state": "NSW",
+      "country": "Australia"
+    },
+    "demographics": {
+      "income": "$8,000/year",
+      "education_level": "High School Graduate",
+      "marital_status": "Single",
+      "household_size": 4
+    },
+    "job": {
+      "title": "Gap Year Student",
+      "industry": "N/A",
+      "experience_years": 0,
+      "employment_type": "Part-time"
+    },
+    "background": "Chloe is taking a gap year before university and exploring interests.",
+    "interests": ["makeup", "K-pop", "travel vlogs"],
+    "purchasing_habits": {
+      "online_shopping_frequency": "Weekly",
+      "preferred_platforms": ["Sephora", "Shein"],
+      "average_spend_per_month": "$60",
+      "brand_loyalty_level": "Low"
+    },
+    "technology": {
+      "tech_literacy": "High",
+      "devices_used": ["iPhone", "Laptop"],
+      "favorite_apps": ["TikTok", "Instagram", "Spotify"]
+    },
+    "goals": {
+      "primary_goals": ["Try new fashion styles"],
+      "secondary_goals": ["Save money for travel"]
+    },
+    "pain_points": ["Small budget", "Inconsistent quality"],
+    "motivations": ["Self-expression", "Affordability"],
+    "personality": {
+      "traits": ["bubbly", "exploratory"],
+      "communication_style": "Casual, lively, emoji-heavy"
+    },
+    "user_story": "As a student, I want affordable trendy options so I can explore new styles.",
+    "acceptance_criteria": ["Budget filters", "Quality assurance tags"]
+  },
+  {
+    "id": "persona-029",
+    "name": "Victor Santos",
+    "age": 33,
+    "gender": "Male",
+    "location": {
+      "address": "Rua Da Esperança 12",
+      "city": "Rio de Janeiro",
+      "state": "RJ",
+      "country": "Brazil"
+    },
+    "demographics": {
+      "income": "$48,000/year",
+      "education_level": "Bachelor's Degree in Marketing",
+      "marital_status": "Single",
+      "household_size": 2
+    },
+    "job": {
+      "title": "Video Editor",
+      "industry": "Media Production",
+      "experience_years": 8,
+      "employment_type": "Full-time"
+    },
+    "background": "Victor edits videos for ad agencies and YouTube clients.",
+    "interests": ["cinematography", "drones", "gaming"],
+    "purchasing_habits": {
+      "online_shopping_frequency": "Weekly",
+      "preferred_platforms": ["B&H", "Mercado Livre"],
+      "average_spend_per_month": "$350",
+      "brand_loyalty_level": "Medium"
+    },
+    "technology": {
+      "tech_literacy": "Very High",
+      "devices_used": ["4K workstation", "DJI drone"],
+      "favorite_apps": ["Premiere Pro", "DaVinci Resolve"]
+    },
+    "goals": {
+      "primary_goals": ["Upgrade editing tools"],
+      "secondary_goals": ["Improve workflow speed"]
+    },
+    "pain_points": ["High gear prices", "Fake accessory listings"],
+    "motivations": ["Quality", "Performance"],
+    "personality": {
+      "traits": ["creative", "focused"],
+      "communication_style": "Direct and technical"
+    },
+    "user_story": "As a video editor, I want accurate gear reviews so I can invest wisely.",
+    "acceptance_criteria": ["Accessory authenticity markers", "Video performance benchmarks"]
+  },
+  {
+    "id": "persona-030",
+    "name": "Harper Lewis",
+    "age": 41,
+    "gender": "Nonbinary",
+    "location": {
+      "address": "91 Willow Terrace",
+      "city": "Vancouver",
+      "state": "BC",
+      "country": "Canada"
+    },
+    "demographics": {
+      "income": "$75,000/year",
+      "education_level": "Master's Degree",
+      "marital_status": "In a partnership",
+      "household_size": 2
+    },
+    "job": {
+      "title": "Therapist",
+      "industry": "Mental Health",
+      "experience_years": 10,
+      "employment_type": "Full-time"
+    },
+    "background": "Harper provides therapy for young adults, focusing on anxiety and trauma.",
+    "interests": ["meditation", "painting", "hiking"],
+    "purchasing_habits": {
+      "online_shopping_frequency": "Monthly",
+      "preferred_platforms": ["Indigo", "REI"],
+      "average_spend_per_month": "$120",
+      "brand_loyalty_level": "Medium"
+    },
+    "technology": {
+      "tech_literacy": "Medium",
+      "devices_used": ["iPad", "Phone"],
+      "favorite_apps": ["Calm", "Google Calendar"]
+    },
+    "goals": {
+      "primary_goals": ["Find calming wellness products"],
+      "secondary_goals": ["Simplify life organization"]
+    },
+    "pain_points": ["Overwhelming choices", "Cluttered marketplaces"],
+    "motivations": ["Peace", "Confidence"],
+    "personality": {
+      "traits": ["empathetic", "reflective"],
+      "communication_style": "Soft, clear, supportive"
+    },
+    "user_story": "As a therapist, I want calm-oriented product suggestions so I can recommend them to clients.",
+    "acceptance_criteria": ["Emotion-based categories", "Trusted wellness suppliers"]
+  }
+]

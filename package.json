@@ -1,0 +1,32 @@
+{
+  "name": "healixpath",
+  "version": "1.0.0",
+  "description": "AI-powered persona storytelling engine for UX, product, and design teams",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsc && node dist/index.js",
+    "watch": "tsc --watch"
+  },
+  "keywords": [
+    "mcp",
+    "personas",
+    "storytelling",
+    "ux",
+    "product",
+    "healthcare",
+    "ai"
+  ],
+  "author": "HealixPath Team",
+  "license": "MIT",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.70.0",
+    "dotenv": "^16.4.7"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "typescript": "^5.3.3"
+  }
+}

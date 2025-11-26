@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "healixpath": {
+      "command": "node",
+      "args": ["/path/to/healixpath/dist/index.js"],
+      "env": {
+        "NODE_ENV": "production",
+        "ANTHROPIC_API_KEY": "${ANTHROPIC_API_KEY}"
+      }
+    }
+  }
+}
