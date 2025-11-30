@@ -994,8 +994,7 @@ with gr.Blocks(title="HealixPath - AI Persona Storytelling", css=CUSTOM_CSS) as 
         """
     <div class="card-container" style="margin-bottom: 26px;">
         <p style="margin: 0; color: var(--text-dim); font-size: 15px; line-height: 1.6;">
-            Keep the green glow while giving every output room to breathe. Choose a persona or add your own, 
-            then craft structured narratives that stay readable and high-contrast.
+            Choose a persona or add your own, then craft structured narratives to inform product decisions and user experiences.
         </p>
     </div>
     """
@@ -1003,10 +1002,10 @@ with gr.Blocks(title="HealixPath - AI Persona Storytelling", css=CUSTOM_CSS) as 
 
     with gr.Tabs():
         # Tab 0: Persona Browser (NEW!)
-        with gr.Tab("🔍 Persona Browser"):
+        with gr.Tab("Persona Browser"):
             gr.Markdown("""
             ### Discover & Search Personas
-            **New Feature:** Browse all 30 personas and filter by multiple criteria
+            Browse all 30 personas and filter by multiple criteria
             """)
             
             with gr.Row():
@@ -1040,10 +1039,10 @@ with gr.Blocks(title="HealixPath - AI Persona Storytelling", css=CUSTOM_CSS) as 
             )
         
         # Tab 1: Generate Personas (NEW!)
-        with gr.Tab("✨ Generate Personas"):
+        with gr.Tab("Generate Personas"):
             gr.Markdown("""
             ### AI-Powered Persona Generator
-            **New Feature:** Generate random, realistic personas based on any description
+            Generate random, realistic personas based on any description
             
             Examples:
             - "people who love to cook but never have time to in their 20-30s"
