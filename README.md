@@ -40,9 +40,63 @@ Designed to help product teams feel their users, not just document them.
 
 ## 🛠️ 2. MCP-Compatible Tools
 
-Each tool is exposed through the MCP server (`src/index.ts`) and powered by Claude via the `@anthropic-sdk/sdk`. Schemas are enforced through Anthropic’s JSON mode so outputs are always valid.
+Each tool is exposed through the MCP server (`src/index.ts`) and powered by Claude via the `@anthropic-sdk/sdk`. Schemas are enforced through Anthropic's JSON mode so outputs are always valid.
 
-### 1. `user_story`
+### 1. `list_personas`
+Lists all available personas with their key attributes.
+
+**Input**
+```json
+{
+  "limit": "number (optional)"
+}
+```
+
+**Output**
+```json
+{
+  "personas": [
+    {
+      "id": "string",
+      "name": "string",
+      "age": "number",
+      "location": "string",
+      "job_title": "string",
+      "industry": "string",
+      "tech_literacy": "string",
+      "primary_goals": ["string"],
+      "pain_points": ["string"],
+      "user_story": "string"
+    }
+  ],
+  "total": "number"
+}
+```
+
+### 2. `search_personas`
+Search and filter personas by various criteria.
+
+**Input**
+```json
+{
+  "role": "string (optional)",
+  "industry": "string (optional)",
+  "age_range": "string (optional, e.g., '25-35')",
+  "tech_literacy": "string (optional)",
+  "location": "string (optional)"
+}
+```
+
+**Output**
+```json
+{
+  "personas": ["array of matching personas"],
+  "count": "number",
+  "filters": "object with applied filters"
+}
+```
+
+### 3. `user_story`
 Generates a structured narrative user story + acceptance criteria from a product and persona.
 
 **Input**
@@ -63,7 +117,7 @@ Generates a structured narrative user story + acceptance criteria from a product
 }
 ```
 
-### 2. `customer_experience_tale`
+### 4. `customer_experience_tale`
 Creates a short narrative describing a persona experiencing a specific problem.
 
 **Input**
@@ -85,7 +139,7 @@ Creates a short narrative describing a persona experiencing a specific problem.
 }
 ```
 
-### 3. `feature_impact_story`
+### 5. `feature_impact_story`
 Shows the before and after of a persona interacting with a feature.
 
 **Input**
@@ -107,7 +161,7 @@ Shows the before and after of a persona interacting with a feature.
 }
 ```
 
-### 4. `journey_map_story`
+### 6. `journey_map_story`
 Generates a narrative for a specific stage of the user journey.
 
 **Input**
@@ -134,20 +188,31 @@ Generates a narrative for a specific stage of the user journey.
 
 ---
 
-## 🧬 3. Persona Data (`data/personas.json`)
+## 📦 3. MCP Resources
 
-```json
-[
-  {
-    "id": "busy_parent",
-    "name": "Busy Parent",
-    "role": "Working parent of two kids",
-    "goals": ["Save time", "Reduce mental load", "Keep kids on schedule"],
-    "frustrations": ["Too many apps", "Slow support", "Juggling work and home"],
-    "tech_comfort": "medium",
-    "quote": "If it's not simple, I don't have time for it."
-  },
-  {
+Personas are also exposed as MCP resources for easy browsing:
+
+- `personas://all` - Complete list of all personas with summaries
+- `personas://[id]` - Individual persona details (e.g., `personas://persona-001`)
+
+Resources allow LLM clients to browse and reference personas without making tool calls.
+
+---
+
+## 🧬 4. Persona Data (`data/personas.json`)
+
+The persona database contains detailed user profiles with:
+- Demographics (age, location, income, education)
+- Job information (title, industry, experience)
+- Technology preferences (literacy level, devices, apps)
+- Goals and motivations
+- Pain points and frustrations
+- Purchasing habits and interests
+- Personality traits and communication style
+
+Example personas include marketing managers, developers, healthcare directors, customer support specialists, and more across various industries and demographics.
+
+---
     "id": "ops_engineer",
     "name": "Ops Engineer",
     "role": "On-call site reliability engineer",
