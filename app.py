@@ -12,6 +12,510 @@ from pathlib import Path
 from dotenv import load_dotenv
 from anthropic import Anthropic
 
+# Modern CSS styling
+CUSTOM_CSS = """
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap');
+
+:root {
+    --bg: #050e0a;
+    --panel: #0b1812;
+    --card: linear-gradient(135deg, rgba(18, 64, 44, 0.94), rgba(10, 34, 24, 0.94));
+    --line: rgba(31, 132, 84, 0.6);
+    --accent: #1da05f;
+    --accent-strong: #167b46;
+    --muted: #9fd8b9;
+    --text: #f7fff9;
+    --text-dim: #c9e5d4;
+    --radius: 18px;
+    --shadow: 0 18px 60px rgba(4, 26, 18, 0.45);
+}
+
+* {
+    font-family: 'Manrope', 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+body,
+html {
+    background: radial-gradient(circle at 18% 18%, rgba(29, 160, 96, 0.08), transparent 32%),
+                radial-gradient(circle at 82% 12%, rgba(18, 92, 59, 0.12), transparent 38%),
+                var(--bg);
+    color: var(--text);
+}
+
+.gradio-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px;
+    background: transparent;
+}
+
+.gr-blocks,
+.gr-page,
+#mount {
+    background: transparent;
+}
+
+a {
+    color: var(--accent);
+}
+
+.header-shell {
+    background: linear-gradient(135deg, rgba(18, 64, 44, 0.95), rgba(10, 34, 24, 0.92));
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 28px 24px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}
+
+.header-shell::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 25% 20%, rgba(34, 197, 94, 0.18), transparent 50%);
+    pointer-events: none;
+}
+
+.header-shell h1 {
+    font-size: clamp(32px, 5vw, 46px);
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin: 6px 0 10px;
+    color: var(--text);
+}
+
+.header-shell .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: rgba(34, 197, 94, 0.08);
+    color: var(--muted);
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.3px;
+}
+
+.header-shell p {
+    margin: 0;
+    color: var(--text-dim);
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.card-container {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 18px 18px;
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.28);
+    margin-bottom: 18px;
+}
+
+.tabs,
+.tab-nav {
+    border: 0;
+    background: transparent;
+}
+
+.tab-nav {
+    display: flex;
+    gap: 6px;
+    padding: 6px;
+    margin-bottom: 12px;
+    background: linear-gradient(135deg, rgba(10, 34, 24, 0.85), rgba(8, 24, 17, 0.85));
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02), 0 10px 24px rgba(0, 0, 0, 0.3);
+}
+
+.tab-nav button {
+    border: 1px solid var(--line);
+    background: linear-gradient(135deg, rgba(12, 42, 30, 0.9), rgba(10, 34, 24, 0.9));
+    color: var(--text);
+    padding: 12px 16px;
+    border-radius: 12px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    position: relative;
+    box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.35);
+}
+
+.tab-nav button:hover {
+    border-color: var(--line);
+    color: var(--text);
+    background: linear-gradient(135deg, rgba(29, 160, 96, 0.16), rgba(22, 123, 70, 0.18));
+}
+
+.tab-nav button[aria-selected="true"] {
+    background: linear-gradient(135deg, rgba(29, 160, 96, 0.18), rgba(22, 123, 70, 0.22));
+    color: var(--text);
+    border-color: var(--line);
+    box-shadow: 0 10px 22px rgba(22, 123, 70, 0.24);
+    overflow: hidden;
+}
+
+.tab-nav button[aria-selected="true"]::after {
+    content: "";
+    position: absolute;
+    left: 12px;
+    right: 12px;
+    bottom: 4px;
+    height: 3px;
+    border-radius: 999px;
+    background: rgba(10, 40, 26, 0.95);
+    box-shadow: 0 2px 8px rgba(10, 40, 26, 0.6);
+}
+
+/* force underline on gradio tab items */
+.gradio-container .tabitem[aria-selected="true"],
+.gradio-container .gr-tabitem[aria-selected="true"],
+.gradio-container .tabs button[aria-selected="true"] {
+    border-bottom: 3px solid rgba(10, 40, 26, 0.95) !important;
+    box-shadow: none !important;
+    position: relative;
+}
+
+.gradio-container .tabitem[aria-selected="true"]::after,
+.gradio-container .tabs button[aria-selected="true"]::after {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 12px;
+    right: 12px;
+    bottom: 2px;
+    height: 3px;
+    border-radius: 999px;
+    background: rgba(10, 40, 26, 0.95);
+    box-shadow: 0 2px 8px rgba(10, 40, 26, 0.6);
+}
+
+/* fallback for Gradio tab buttons rendered as .tabitem without wrapper */
+.gradio-container .tabs button,
+.gradio-container .tabs .tabitem,
+.gradio-container .gr-tabs button,
+.gradio-container .gr-tabs .tabitem {
+    background: linear-gradient(135deg, rgba(12, 42, 30, 0.9), rgba(10, 34, 24, 0.9)) !important;
+    color: var(--text) !important;
+    border: 1px solid var(--line) !important;
+    border-radius: 12px !important;
+    padding: 12px 16px !important;
+    box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.35) !important;
+}
+
+.gradio-container .tabs button[aria-selected="true"],
+.gradio-container .gr-tabs button[aria-selected="true"],
+.gradio-container .tabs .tabitem[aria-selected="true"],
+.gradio-container .gr-tabs .tabitem[aria-selected="true"] {
+    background: linear-gradient(135deg, rgba(29, 160, 96, 0.18), rgba(22, 123, 70, 0.22)) !important;
+    border-color: var(--line) !important;
+    color: var(--text) !important;
+    position: relative;
+}
+
+.gradio-container .tabs button[aria-selected="true"]::after,
+.gradio-container .gr-tabs button[aria-selected="true"]::after,
+.gradio-container .tabs .tabitem[aria-selected="true"]::after,
+.gradio-container .gr-tabs .tabitem[aria-selected="true"]::after {
+    content: "";
+    position: absolute;
+    left: 12px;
+    right: 12px;
+    bottom: 2px;
+    height: 3px;
+    border-radius: 999px;
+    background: rgba(10, 40, 26, 0.95);
+    box-shadow: 0 2px 8px rgba(10, 40, 26, 0.6);
+}
+
+.gr-row {
+    gap: 14px;
+    align-items: stretch;
+}
+
+label {
+    color: var(--text);
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 8px;
+    display: inline-block;
+}
+
+input[type="text"],
+textarea,
+select,
+.gradio-textbox input,
+.gradio-textbox textarea,
+.gradio-dropdown select {
+    background: linear-gradient(135deg, #0b1d14, #0a1610);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    color: var(--text);
+    padding: 0.5em 0.75em;
+    font-size: 14px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+input[type="text"]:focus,
+textarea:focus,
+select:focus,
+.gradio-textbox input:focus,
+.gradio-textbox textarea:focus,
+.gradio-dropdown select:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(29, 160, 96, 0.25);
+    outline: none;
+    transform: translateY(-1px);
+    background: linear-gradient(135deg, #0f2a1c, #0b1f15);
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: var(--muted);
+}
+
+.gradio-dropdown select,
+.gradio-dropdown .wrap,
+.gradio-dropdown button,
+[data-testid="dropdown"] .single-select,
+[data-testid="dropdown"] .wrap,
+[data-testid="dropdown"] select,
+[data-testid="dropdown"] button {
+    background: linear-gradient(135deg, #0b2217, #0a1912) !important;
+    border: 0 !important;
+    color: var(--text) !important;
+    border-radius: 12px !important;
+}
+
+.gradio-dropdown .wrap.svelte-1hxfprf,
+.gradio-container .container .wrap.svelte-1hxfprf,
+.gradio-container .container .wrap-inner.svelte-1hxfprf,
+.gradio-container .container .secondary-wrap.svelte-1hxfprf {
+    background: linear-gradient(135deg, #0b2217, #0a1912) !important;
+    border: 1px solid var(--line) !important;
+    border-radius: 12px !important;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02), 0 10px 18px rgba(0, 0, 0, 0.25) !important;
+    color: var(--text) !important;
+    padding: 0 !important;
+}
+
+.gradio-container .container.svelte-1hfxrpf,
+.gradio-container .container.svelte-1hfxrpf .wrap,
+.gradio-container .container.svelte-1hfxrpf .wrap-inner,
+.gradio-container .container.svelte-1hfxrpf .secondary-wrap {
+    background: linear-gradient(135deg, #0b2217, #0a1912) !important;
+    border: 1px solid var(--line) !important;
+    border-radius: 12px !important;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02), 0 10px 18px rgba(0, 0, 0, 0.25) !important;
+    color: var(--text) !important;
+}
+
+.gradio-container .container.svelte-1hfxrpf input.border-none,
+.gradio-container .container.svelte-1hfxrpf input.svelte-1hfxrpf,
+.gradio-container .container.svelte-1hfxrpf input {
+    background: transparent !important;
+    color: var(--text) !important;
+    border: none !important;
+    padding: 0.5em 0.75em !important;
+}
+
+.gradio-container .container.svelte-1hfxrpf .icon-wrap.svelte-1hfxrpf,
+.gradio-container .container.svelte-1hfxrpf .dropdown-arrow {
+    color: var(--text) !important;
+    fill: var(--text) !important;
+}
+
+.gradio-dropdown,
+.gradio-dropdown > div,
+.gradio-dropdown > div > div {
+    background: linear-gradient(135deg, #0b2217, #0a1912) !important;
+    border: 1px solid var(--line) !important;
+    border-radius: 12px !important;
+    color: var(--text) !important;
+}
+
+.gradio-dropdown .wrap:focus-within,
+.gradio-dropdown select:focus,
+[data-testid="dropdown"] select:focus,
+[data-testid="dropdown"] .wrap:focus-visible,
+[data-testid="dropdown"] .wrap:focus-within {
+    box-shadow: 0 0 0 3px rgba(29, 160, 96, 0.25) !important;
+    border-color: var(--accent) !important;
+}
+
+.gradio-dropdown .options,
+[data-testid="dropdown"] .options {
+    background: #0b2217 !important;
+    border: 1px solid var(--line) !important;
+    color: var(--text) !important;
+}
+
+.gradio-dropdown .option,
+[data-testid="dropdown"] .option {
+    background: #0b2217 !important;
+    color: var(--text) !important;
+}
+
+.gradio-container .gr-panel,
+.gradio-container .gr-box,
+.gradio-container .gr-form,
+.gradio-container .gr-group,
+.gradio-container .gr-block,
+.gradio-container .block,
+.gradio-container .panel,
+.gradio-container .form,
+.gradio-container .wrap {
+    background: linear-gradient(135deg, #0b1d14, #0a1610);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.24);
+}
+
+/* nested content stays transparent to let wrappers show gradient */
+.gradio-container .gr-panel *,
+.gradio-container .gr-box *,
+.gradio-container .block *,
+.gradio-container .panel * {
+    background-color: transparent;
+}
+
+/* reduce nested wrapper outlines for dropdown blocks */
+.gradio-container .gr-group .gr-column,
+.gradio-container .gr-group .gr-form,
+.gradio-container .gr-group .gr-box {
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+}
+
+.gradio-container .container.svelte-1hfxrpf,
+.gradio-container .container.svelte-1hfxrpf {
+    border: 1px solid var(--line) !important;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18) !important;
+    background: linear-gradient(135deg, rgb(11, 29, 20), rgb(10, 22, 16)) !important;
+}
+
+/* keep inner wraps clean to avoid stacked outlines */
+.gradio-container .container.svelte-1hfxrpf .wrap,
+.gradio-container .container.svelte-1hfxrpf .wrap-inner,
+.gradio-container .container.svelte-1hfxrpf .secondary-wrap {
+    border: 0 !important;
+    box-shadow: none !important;
+    background: transparent !important;
+}
+
+/* inner-most wrapper should have no outline */
+.gradio-container .container.svelte-1hfxrpf .secondary-wrap {
+    border: none !important;
+    box-shadow: none !important;
+}
+
+
+button,
+.gradio-button,
+.gr-button {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-strong) 100%);
+    border: none;
+    color: #f7fff9;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 14px 20px !important;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 10px 20px rgba(20, 111, 67, 0.28);
+}
+
+button:hover,
+.gradio-button:hover,
+.gr-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 26px rgba(20, 111, 67, 0.34);
+}
+
+button:active,
+.gradio-button:active,
+.gr-button:active {
+    transform: translateY(0);
+    box-shadow: 0 8px 16px rgba(20, 111, 67, 0.3);
+}
+
+.gradio-button:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}
+
+[data-testid="textbox"] textarea {
+    background: linear-gradient(135deg, #0c2116, #0a1a12);
+    font-family: 'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;
+    line-height: 1.55;
+    font-size: 13px;
+}
+
+.gr-markdown h2,
+.gr-markdown h3 {
+    color: var(--text);
+    margin-bottom: 6px;
+}
+
+.gr-markdown p {
+    color: var(--text-dim);
+    line-height: 1.6;
+}
+
+footer,
+.footer,
+[data-testid="footer"] {
+    border-top: 1px solid var(--line);
+    margin-top: 18px;
+    padding-top: 12px;
+    color: var(--text-dim);
+    background: transparent;
+}
+
+footer * {
+    color: var(--text-dim);
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(34, 197, 94, 0.35);
+    border-radius: 6px;
+}
+
+@media (max-width: 900px) {
+    .gradio-container {
+        padding: 18px;
+    }
+
+    .header-shell {
+        padding: 22px 18px;
+    }
+
+    .card-container {
+        padding: 14px;
+    }
+
+    .tab-nav {
+        flex-wrap: wrap;
+    }
+}
+"""
+
 # Load environment variables from .env file
 load_dotenv()
 
@@ -28,8 +532,8 @@ def create_persona_description(p):
     age = p.get("age", "")
     job_title = p.get("job", {}).get("title", "")
     location_city = p.get("location", {}).get("city", "")
-    return f"{p['name']} • {age}yo {job_title} • {location_city}"
-
+    age_label = f"{age}yo" if age else ""
+    return f"{p['name']} | {age_label} {job_title} | {location_city}".strip()
 # Map display names to persona IDs
 persona_options = {create_persona_description(p): p["id"] for p in personas}
 CUSTOM_PERSONA_LABEL = "Other (Custom Persona)"
@@ -475,15 +979,28 @@ Return format: [persona1, persona2, ...]"""
         return json.dumps({"error": f"Failed to generate personas: {str(e)}"}, indent=2)
 
 # Build the Gradio interface
-with gr.Blocks(title="HealixPath - AI Persona Storytelling") as demo:
-    gr.Markdown("""
-    # 🌟 HealixPath - AI-Powered Persona Storytelling Engine
-    
-    Transform product inputs, personas, and problems into rich, structured, realistic stories.
-    
-    Instead of vague bullet points, HealixPath generates actionable narratives grounded in deep persona research.
-    """)
-    
+with gr.Blocks(title="HealixPath - AI Persona Storytelling", css=CUSTOM_CSS) as demo:
+    gr.HTML(
+        """
+    <div class="header-shell">
+        <span class="eyebrow">Persona storytelling workspace</span>
+        <h1>HealixPath</h1>
+        <p>AI-powered generator for persona-driven stories, journeys, and impact narratives.</p>
+    </div>
+    """
+    )
+
+    gr.HTML(
+        """
+    <div class="card-container" style="margin-bottom: 26px;">
+        <p style="margin: 0; color: var(--text-dim); font-size: 15px; line-height: 1.6;">
+            Keep the green glow while giving every output room to breathe. Choose a persona or add your own, 
+            then craft structured narratives that stay readable and high-contrast.
+        </p>
+    </div>
+    """
+    )
+
     with gr.Tabs():
         # Tab 0: Persona Browser (NEW!)
         with gr.Tab("🔍 Persona Browser"):
@@ -570,7 +1087,11 @@ with gr.Blocks(title="HealixPath - AI Persona Storytelling") as demo:
         with gr.Tab("User Story"):
             gr.Markdown("### Generate Structured User Stories")
             with gr.Row():
-                product = gr.Textbox(label="Product/Feature", placeholder="e.g., Healthcare appointment app")
+                product = gr.Textbox(
+                    label="Product / Feature",
+                    placeholder="e.g., Healthcare appointment app with AI scheduling",
+                    lines=2,
+                )
             with gr.Row():
                 persona_name = gr.Dropdown(
                     label="Select Persona",
@@ -586,21 +1107,32 @@ with gr.Blocks(title="HealixPath - AI Persona Storytelling") as demo:
                 persona_name.change(
                     toggle_custom_persona, inputs=persona_name, outputs=persona_custom
                 )
-            
+
             user_story_btn = gr.Button("Generate User Story", scale=2)
-            user_story_output = gr.Textbox(label="Generated Story", lines=15, interactive=False)
-            
+            user_story_output = gr.Textbox(
+                label="Generated Story",
+                lines=18,
+                interactive=False,
+                show_copy_button=True,
+            )
+
             user_story_btn.click(
                 generate_user_story,
                 inputs=[product, persona_name, persona_custom],
-                outputs=user_story_output
+                outputs=user_story_output,
             )
-        
-        # Tab 3: Experience Tale
+
+        # Tab 2: Experience Tale
         with gr.Tab("Experience Tale"):
-            gr.Markdown("### Generate Customer Experience Narratives")
+            gr.HTML(
+                '<div class="card-container"><p style="margin: 0; font-size: 15px; color: var(--text-dim);">Generate customer experience narratives highlighting pain points and opportunities.</p></div>'
+            )
             with gr.Row():
-                problem = gr.Textbox(label="Problem", placeholder="e.g., Mobile app crashes during checkout")
+                problem = gr.Textbox(
+                    label="Problem",
+                    placeholder="e.g., Mobile app crashes during checkout process",
+                    lines=2,
+                )
             with gr.Row():
                 persona_name_2 = gr.Dropdown(
                     label="Select Persona",
@@ -618,21 +1150,32 @@ with gr.Blocks(title="HealixPath - AI Persona Storytelling") as demo:
                     inputs=persona_name_2,
                     outputs=persona_custom_2,
                 )
-            
+
             tale_btn = gr.Button("Generate Experience Tale", scale=2)
-            tale_output = gr.Textbox(label="Generated Tale", lines=15, interactive=False)
-            
+            tale_output = gr.Textbox(
+                label="Generated Tale",
+                lines=18,
+                interactive=False,
+                show_copy_button=True,
+            )
+
             tale_btn.click(
                 generate_experience_tale,
                 inputs=[problem, persona_name_2, persona_custom_2],
-                outputs=tale_output
+                outputs=tale_output,
             )
-        
-        # Tab 4: Feature Impact
+
+        # Tab 3: Feature Impact
         with gr.Tab("Feature Impact"):
-            gr.Markdown("### Generate Before/After Feature Impact Stories")
+            gr.HTML(
+                '<div class="card-container"><p style="margin: 0; font-size: 15px; color: var(--text-dim);">Show before/after impact stories demonstrating feature value.</p></div>'
+            )
             with gr.Row():
-                feature = gr.Textbox(label="Feature", placeholder="e.g., One-click scheduling with automatic reminders")
+                feature = gr.Textbox(
+                    label="Feature",
+                    placeholder="e.g., One-click scheduling with automatic reminders",
+                    lines=2,
+                )
             with gr.Row():
                 persona_name_3 = gr.Dropdown(
                     label="Select Persona",
@@ -650,22 +1193,37 @@ with gr.Blocks(title="HealixPath - AI Persona Storytelling") as demo:
                     inputs=persona_name_3,
                     outputs=persona_custom_3,
                 )
-            
+
             impact_btn = gr.Button("Generate Feature Impact", scale=2)
-            impact_output = gr.Textbox(label="Generated Impact Story", lines=15, interactive=False)
-            
+            impact_output = gr.Textbox(
+                label="Generated Impact Story",
+                lines=18,
+                interactive=False,
+                show_copy_button=True,
+            )
+
             impact_btn.click(
                 generate_feature_impact,
                 inputs=[feature, persona_name_3, persona_custom_3],
-                outputs=impact_output
+                outputs=impact_output,
             )
-        
-        # Tab 5: Journey Map
+
+        # Tab 4: Journey Map
         with gr.Tab("Journey Map"):
-            gr.Markdown("### Generate Journey Map Narratives")
+            gr.HTML(
+                '<div class="card-container"><p style="margin: 0; font-size: 15px; color: var(--text-dim);">Generate journey stage narratives with touchpoints and emotions.</p></div>'
+            )
             with gr.Row():
-                stage = gr.Textbox(label="Journey Stage", placeholder="e.g., awareness, consideration, adoption, retention")
-                product_journey = gr.Textbox(label="Product", placeholder="e.g., Healthcare platform")
+                stage = gr.Textbox(
+                    label="Journey Stage",
+                    placeholder="e.g., awareness, consideration, adoption, retention",
+                    lines=1,
+                )
+                product_journey = gr.Textbox(
+                    label="Product",
+                    placeholder="e.g., Healthcare platform",
+                    lines=1,
+                )
             with gr.Row():
                 persona_name_4 = gr.Dropdown(
                     label="Select Persona",
@@ -683,15 +1241,30 @@ with gr.Blocks(title="HealixPath - AI Persona Storytelling") as demo:
                     inputs=persona_name_4,
                     outputs=persona_custom_4,
                 )
-            
+
             journey_btn = gr.Button("Generate Journey Map", scale=2)
-            journey_output = gr.Textbox(label="Generated Journey Map", lines=15, interactive=False)
-            
+            journey_output = gr.Textbox(
+                label="Generated Journey Map",
+                lines=18,
+                interactive=False,
+                show_copy_button=True,
+            )
+
             journey_btn.click(
                 generate_journey_story,
                 inputs=[stage, product_journey, persona_name_4, persona_custom_4],
-                outputs=journey_output
+                outputs=journey_output,
             )
 
+    gr.HTML(
+        """
+    <div style="text-align: center; margin-top: 32px; padding: 16px; border-top: 1px solid var(--line); color: var(--text-dim);">
+        <p style="font-size: 13px; margin: 0;">
+            HealixPath - AI-powered persona storytelling engine<br>
+            <span style="color: var(--muted);">Powered by Claude &amp; Gradio</span>
+        </p>
+    </div>
+    """
+    )
 if __name__ == "__main__":
-    demo.launch()
+    demo.launch(server_name="127.0.0.1", server_port=7872, share=False)
