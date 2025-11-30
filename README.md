@@ -22,6 +22,19 @@ tags:
 
 ✨ HealixPath transforms product inputs, personas, problems, and customer journey stages into rich, structured, realistic stories. Use this exact package for your MCP server, repo, and hackathon pitch.
 
+## The Team
+
+[@DevRubenArevalo](https://huggingface.co/DevRubenArevalo) and [@mackenzietechdocs](https://huggingface.co/mackenzietechdocs) are Team Healix!
+
+
+## The Posts
+
+Check out our social posts [here](https://www.linkedin.com/feed/update/urn:li:activity:7401032353361477633/) and [here](https://www.linkedin.com/posts/mackenzieoc_mcp1stbirthday-hackathon-huggingface-activity-7395261430117060608-CLZA?utm_source=share&utm_medium=member_desktop&rcm=ACoAACWYuygBMootqeGy7VYKkdnEkHoEuI5canU)
+
+### The Video
+
+Check out our demo video. Coming soon! 
+
 ---
 
 ## 🧠 1. Product Overview (README + Pitch)
