@@ -1267,4 +1267,4 @@ with gr.Blocks(title="HealixPath - AI Persona Storytelling", css=CUSTOM_CSS) as 
     """
     )
 if __name__ == "__main__":
-    demo.launch(server_name="127.0.0.1", server_port=7872, share=False)
+    demo.launch()
