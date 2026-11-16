@@ -1,28 +1,27 @@
 #!/usr/bin/env python3
+"""Dev-only smoke test: calls the HealixPath model with a token you supply via HF_TOKEN.
+
+The app itself never reads HF_TOKEN; visitors sign in with Hugging Face instead.
+"""
 import os
-from dotenv import load_dotenv
-from anthropic import Anthropic
+from huggingface_hub import InferenceClient
 
-load_dotenv()
-api_key = os.getenv('ANTHROPIC_API_KEY')
-model = os.getenv('ANTHROPIC_MODEL', 'claude-haiku-5-5')
+model = os.getenv("HEALIXPATH_MODEL", "openai/gpt-oss-20b")
+token = os.getenv("HF_TOKEN")
+print(f"Model: {model}")
+print(f"HF_TOKEN set: {bool(token)}")
 
-print(f'API Key found: {bool(api_key)}')
-print(f'API Key (first 20 chars): {api_key[:20] if api_key else "None"}')
-print(f'Model: {model}')
-
-if api_key:
+if token:
     try:
-        client = Anthropic(api_key=api_key)
-        response = client.messages.create(
+        result = InferenceClient(api_key=token).chat_completion(
             model=model,
+            messages=[{"role": "user", "content": "Say hello"}],
             max_tokens=100,
-            messages=[{'role': 'user', 'content': 'Say hello'}]
         )
-        print(f'✅ API call successful!')
-        print(f'Response: {response.content[0].text}')
+        print("API call successful")
+        print(f"Response: {result.choices[0].message.content}")
     except Exception as e:
-        print(f'❌ API Error: {type(e).__name__}')
-        print(f'Message: {str(e)}')
+        print(f"API error: {type(e).__name__}")
+        print(f"Message: {e}")
 else:
-    print('❌ No API key found')
+    print("Set HF_TOKEN (needs the 'Make calls to Inference Providers' permission) to run this check.")

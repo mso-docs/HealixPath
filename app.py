@@ -7,9 +7,10 @@ A web interface for generating AI-powered persona-driven narratives.
 import gradio as gr
 import json
 import os
+import re
 from pathlib import Path
 from dotenv import load_dotenv
-from anthropic import Anthropic
+from huggingface_hub import InferenceClient
 
 # Modern CSS styling
 CUSTOM_CSS = """
@@ -540,10 +541,17 @@ persona_list = list(persona_options.keys())
 persona_choices = [CUSTOM_PERSONA_LABEL] + persona_list
 default_persona_choice = persona_list[0] if persona_list else CUSTOM_PERSONA_LABEL
 
-# Initialize Anthropic client
-api_key = os.getenv("ANTHROPIC_API_KEY")
-model = os.getenv("ANTHROPIC_MODEL", "claude-haiku-5-5")
-client = Anthropic(api_key=api_key) if api_key else None
+# Free AI backend: Hugging Face Inference Providers.
+# Every generation runs on the *visitor's* Hugging Face account (Sign in with Hugging Face),
+# so it uses the visitor's own free monthly allowance. The Space never uses its own token,
+# a Space secret, or a paid API key for inference.
+MODEL = os.getenv("HEALIXPATH_MODEL", "openai/gpt-oss-20b")
+
+SIGN_IN_MESSAGE = (
+    "Please sign in with Hugging Face (button at the top of the page) to generate. "
+    "Generations use your own free Hugging Face Inference Providers allowance."
+)
+
 
 def get_persona_context(persona_id: str, custom_persona: str = "") -> str:
     """Format persona data for prompt context."""
@@ -630,32 +638,59 @@ def toggle_custom_persona(selected_value: str):
     show_custom = selected_value == CUSTOM_PERSONA_LABEL
     return gr.update(visible=show_custom, value="" if not show_custom else None)
 
-def generate_with_claude(system_prompt: str, user_prompt: str) -> str:
-    """Call Claude API and return structured response."""
-    if not client or not api_key:
-        return json.dumps({
-            "error": "ANTHROPIC_API_KEY not configured",
-            "message": "Please add your ANTHROPIC_API_KEY to the .env file"
-        }, indent=2)
-    
+def resolve_token(oauth_token=None, request=None):
+    """Return the visitor's own Hugging Face token, or None.
+
+    Order: the OAuth token from "Sign in with Hugging Face", then a Bearer token the
+    caller sent in the Authorization header (for MCP clients that pass their own token).
+    Never falls back to a Space-level token or secret.
+    """
+    token = getattr(oauth_token, "token", None)
+    if token:
+        return token
     try:
-        message = client.messages.create(
-            model=model,
-            max_tokens=1024,
-            system=system_prompt,
+        auth = request.headers.get("authorization", "") if request is not None else ""
+    except Exception:
+        auth = ""
+    if auth.lower().startswith("bearer ") and auth[7:].strip():
+        return auth[7:].strip()
+    return None
+
+
+def _strip_code_fence(text: str) -> str:
+    text = (text or "").strip()
+    if text.startswith("```"):
+        text = re.sub(r"^```[a-zA-Z]*\s*", "", text)
+        text = re.sub(r"\s*```$", "", text).strip()
+    return text
+
+
+def generate_text(system_prompt: str, user_prompt: str, token, max_tokens: int = 1500) -> str:
+    """Call an open model through HF Inference Providers with the visitor's token."""
+    if not token:
+        return json.dumps({"error": "Sign in required", "message": SIGN_IN_MESSAGE}, indent=2)
+    try:
+        client = InferenceClient(api_key=token)
+        result = client.chat_completion(
+            model=MODEL,
             messages=[
-                {"role": "user", "content": user_prompt}
-            ]
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt},
+            ],
+            max_tokens=max_tokens,
+            temperature=0.7,
         )
-        return message.content[0].text
+        return _strip_code_fence(result.choices[0].message.content or "")
     except Exception as e:
         return json.dumps({
-            "error": str(type(e).__name__),
-            "message": str(e)
+            "error": type(e).__name__,
+            "message": f"Hugging Face Inference Providers call failed: {e}",
         }, indent=2)
 
-def generate_user_story(product: str, persona_name: str, persona_override: str):
+def generate_user_story(product: str, persona_name: str, persona_override: str,
+        oauth_token: gr.OAuthToken | None = None, request: gr.Request = None):
     """Generate a user story for the given product and persona(s)."""
+    token = resolve_token(oauth_token, request)
     _, persona_contexts = build_persona_profile(persona_name, persona_override)
     
     system_prompt = """You are an expert UX writer and product strategist. 
@@ -674,7 +709,7 @@ Generate a user story for this persona using the product: {product}
 
 Format as JSON with the keys: story, acceptance_criteria (array), risks (array)"""
 
-        response = generate_with_claude(system_prompt, user_prompt)
+        response = generate_text(system_prompt, user_prompt, token)
         try:
             data = json.loads(response)
             if len(persona_contexts) > 1:
@@ -685,8 +720,10 @@ Format as JSON with the keys: story, acceptance_criteria (array), risks (array)"
     
     return json.dumps(results if len(results) > 1 else results[0], indent=2)
 
-def generate_experience_tale(problem: str, persona_name: str, persona_override: str):
+def generate_experience_tale(problem: str, persona_name: str, persona_override: str,
+        oauth_token: gr.OAuthToken | None = None, request: gr.Request = None):
     """Generate a customer experience tale."""
+    token = resolve_token(oauth_token, request)
     _, persona_contexts = build_persona_profile(persona_name, persona_override)
     
     system_prompt = """You are an expert in customer experience and user research.
@@ -706,7 +743,7 @@ Describe how this persona experiences this problem: {problem}
 
 Format as JSON with keys: title, narrative, pain_points (array), opportunities (array)"""
 
-        response = generate_with_claude(system_prompt, user_prompt)
+        response = generate_text(system_prompt, user_prompt, token)
         try:
             data = json.loads(response)
             if len(persona_contexts) > 1:
@@ -717,8 +754,10 @@ Format as JSON with keys: title, narrative, pain_points (array), opportunities (
     
     return json.dumps(results if len(results) > 1 else results[0], indent=2)
 
-def generate_feature_impact(feature: str, persona_name: str, persona_override: str):
+def generate_feature_impact(feature: str, persona_name: str, persona_override: str,
+        oauth_token: gr.OAuthToken | None = None, request: gr.Request = None):
     """Generate a before/after feature impact story."""
+    token = resolve_token(oauth_token, request)
     _, persona_contexts = build_persona_profile(persona_name, persona_override)
     
     system_prompt = """You are an expert at showing product impact through user narratives.
@@ -738,7 +777,7 @@ Show the before/after impact of this feature on the persona's experience: {featu
 
 Format as JSON with keys: before_story, after_story, key_benefits (array), success_metrics (array)"""
 
-        response = generate_with_claude(system_prompt, user_prompt)
+        response = generate_text(system_prompt, user_prompt, token)
         try:
             data = json.loads(response)
             if len(persona_contexts) > 1:
@@ -749,8 +788,10 @@ Format as JSON with keys: before_story, after_story, key_benefits (array), succe
     
     return json.dumps(results if len(results) > 1 else results[0], indent=2)
 
-def generate_journey_story(stage: str, product: str, persona_name: str, persona_override: str):
+def generate_journey_story(stage: str, product: str, persona_name: str, persona_override: str,
+        oauth_token: gr.OAuthToken | None = None, request: gr.Request = None):
     """Generate a journey map narrative."""
+    token = resolve_token(oauth_token, request)
     _, persona_contexts = build_persona_profile(persona_name, persona_override)
     
     system_prompt = """You are an expert in customer journey mapping and experience design.
@@ -772,7 +813,7 @@ Describe this persona's experience at the '{stage}' stage of their journey with 
 
 Format as JSON with keys: stage, narrative, touchpoints (array), emotions (array), breakdowns (array), opportunities (array)"""
 
-        response = generate_with_claude(system_prompt, user_prompt)
+        response = generate_text(system_prompt, user_prompt, token)
         try:
             data = json.loads(response)
             if len(persona_contexts) > 1:
@@ -865,16 +906,18 @@ def show_persona_details(persona_index: int):
         return json.dumps(p, indent=2)
     return "Persona not found"
 
-def generate_personas_func(description: str, count: int):
-    """Generate random personas based on description using Claude AI."""
+def generate_personas_func(description: str, count: int,
+        oauth_token: gr.OAuthToken | None = None, request: gr.Request = None):
+    """Generate random personas based on description using an open model via Hugging Face."""
+    token = resolve_token(oauth_token, request)
     if not description or not description.strip():
         return json.dumps({"error": "Please provide a description"}, indent=2)
     
     if count < 1 or count > 5:
         return json.dumps({"error": "Count must be between 1 and 5"}, indent=2)
     
-    if not client:
-        return json.dumps({"error": "Anthropic API key not configured"}, indent=2)
+    if not token:
+        return json.dumps({"error": "Sign in required", "message": SIGN_IN_MESSAGE}, indent=2)
     
     system_prompt = """You are a persona generation expert. Generate realistic, diverse user personas based on the provided description.
 
@@ -952,14 +995,10 @@ Requirements:
 Return format: [persona1, persona2, ...]"""
     
     try:
-        response = client.messages.create(
-            model=model,
-            max_tokens=4096,
-            messages=[{"role": "user", "content": f"{system_prompt}\n\n{user_prompt}"}]
-        )
-        
-        response_text = response.content[0].text if response.content else ""
-        
+        response_text = generate_text(system_prompt, user_prompt, token, max_tokens=4096)
+        if response_text.lstrip().startswith("{") and '"error"' in response_text[:40]:
+            return response_text
+
         # Clean up response (remove markdown code blocks if present)
         cleaned_response = response_text.strip()
         if cleaned_response.startswith("```json"):
@@ -988,6 +1027,19 @@ with gr.Blocks(title="HealixPath - AI Persona Storytelling", css=CUSTOM_CSS) as 
     </div>
     """
     )
+
+    with gr.Row():
+        gr.LoginButton(value="Sign in with Hugging Face")
+        signin_status = gr.Markdown(
+            "**Signed out.** " + SIGN_IN_MESSAGE
+        )
+
+    def show_signin_status(profile: gr.OAuthProfile | None):
+        if profile is None:
+            return "**Signed out.** " + SIGN_IN_MESSAGE
+        return f"**Signed in as {profile.username}.** Generations use your own free Hugging Face allowance."
+
+    demo.load(show_signin_status, inputs=None, outputs=signin_status)
 
     gr.HTML(
         """
@@ -1259,7 +1311,7 @@ with gr.Blocks(title="HealixPath - AI Persona Storytelling", css=CUSTOM_CSS) as 
     <div style="text-align: center; margin-top: 32px; padding: 16px; border-top: 1px solid var(--line); color: var(--text-dim);">
         <p style="font-size: 13px; margin: 0;">
             HealixPath - AI-powered persona storytelling engine<br>
-            <span style="color: var(--muted);">Powered by Claude &amp; Gradio</span>
+            <span style="color: var(--muted);">Open models via Hugging Face Inference Providers &amp; Gradio</span>
         </p>
     </div>
     """

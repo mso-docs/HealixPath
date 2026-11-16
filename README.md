@@ -7,6 +7,9 @@ sdk: gradio
 sdk_version: 5.49.1
 app_file: app.py
 pinned: true
+hf_oauth: true
+hf_oauth_scopes:
+  - inference-api
 short_description: AI-powered persona storytelling engine for enterprise.
 tags:
     - mcp-hackathon
@@ -24,7 +27,23 @@ tags:
 
 ## About The Team
 
-[@DevRubenArevalo](https://huggingface.co/DevRubenArevalo) and [@mackenzietechdocs](https://huggingface.co/mackenzietechdocs) are Team Healix! We are a two-person dev team looking to make robust AI applications for everyone.
+HealixPath was built by **Mackenzie O'Brien** ([@mackenzietechdocs](https://huggingface.co/mackenzietechdocs), [GitHub](https://github.com/mso-docs)) and **co-author @DevRubenArevalo** ([Hugging Face](https://huggingface.co/DevRubenArevalo), [GitHub](https://github.com/DevRubenArevalo)). Together we are Team Healix, a two-person dev team looking to make robust AI applications for everyone.
+
+The official November 2025 hackathon submission lives at [MCP-1st-Birthday/TeamHealix](https://huggingface.co/spaces/MCP-1st-Birthday/TeamHealix) and is kept unchanged. This Space is the live, maintained copy.
+
+## Sign in with Hugging Face (free AI, no API key)
+
+This live copy no longer uses any paid API key. Text generation runs on open models through [Hugging Face Inference Providers](https://huggingface.co/docs/inference-providers), using **your own** Hugging Face account:
+
+1. Click **Sign in with Hugging Face** at the top of the app and approve the `inference-api` permission.
+2. Generate stories, journeys, and personas. Each request is billed to your account's free monthly Inference Providers allowance. If you run out, Hugging Face will tell you; PRO accounts get a larger allowance.
+3. Signed-out visitors can browse and search personas, but generation shows a "please sign in" message. The Space never falls back to its owner's token or any secret.
+
+Model: [`openai/gpt-oss-20b`](https://huggingface.co/openai/gpt-oss-20b) (open weights, Apache 2.0, instruction-tuned). When running your own copy, set the `HEALIXPATH_MODEL` environment variable to any chat model served by Inference Providers.
+
+**MCP clients:** the Gradio MCP endpoint is `https://mackenzietechdocs-healixpath.hf.space/gradio_api/mcp/`. Tools that generate text need a Hugging Face token with the "Make calls to Inference Providers" permission; send it as `Authorization: Bearer <your token>`.
+
+**Running locally:** `pip install -r requirements.txt && python app.py`. Local OAuth sign-in needs a Space; the app does not read `HF_TOKEN`. Duplicate the Space to your account to get your own copy with sign-in enabled.
 
 
 ## The Posts
@@ -53,7 +72,7 @@ Designed to help product teams feel their users, not just document them.
 
 ## 🛠️ 2. MCP-Compatible Tools
 
-Each tool is exposed through the MCP server (`src/index.ts`) and powered by Claude via the `@anthropic-sdk/sdk`. Schemas are enforced through Anthropic's JSON mode so outputs are always valid.
+Each tool is exposed through the MCP server (`src/index.ts`) and powered by open models via Hugging Face Inference Providers in the Gradio app (the original hackathon build used Claude). Prompts request JSON-only output.
 
 ### 1. `list_personas`
 Lists all available personas with their key attributes.
@@ -336,12 +355,12 @@ healixpath/
 
 ### Node.js MCP Server
 ```bash
-cp .env.example .env   # add your Anthropic key
+cp .env.example .env   # optional: only the original local Node demo used an Anthropic key
 npm install
 npm run build
 npm run start
 ```
-`src/index.ts` boots the HealixPath MCP server, enumerates tools, and shows sample tool calls. Claude responses stream through `@anthropic-sdk/sdk` with enforced JSON schemas; when the API key is absent, deterministic fallbacks keep the demo running.
+`src/index.ts` boots the HealixPath MCP server, enumerates tools, and shows sample tool calls. This local TypeScript demo is the original hackathon prototype; the live Gradio app does not use it.
 
 ### Gradio Demo
 ```bash
