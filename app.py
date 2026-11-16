@@ -6,7 +6,6 @@ A web interface for generating AI-powered persona-driven narratives.
 
 import gradio as gr
 import json
-import subprocess
 import os
 from pathlib import Path
 from dotenv import load_dotenv
@@ -543,7 +542,7 @@ default_persona_choice = persona_list[0] if persona_list else CUSTOM_PERSONA_LAB
 
 # Initialize Anthropic client
 api_key = os.getenv("ANTHROPIC_API_KEY")
-model = os.getenv("ANTHROPIC_MODEL", "claude-3-haiku-20240307")
+model = os.getenv("ANTHROPIC_MODEL", "claude-haiku-5-5")
 client = Anthropic(api_key=api_key) if api_key else None
 
 def get_persona_context(persona_id: str, custom_persona: str = "") -> str:
@@ -1266,4 +1265,4 @@ with gr.Blocks(title="HealixPath - AI Persona Storytelling", css=CUSTOM_CSS) as 
     """
     )
 if __name__ == "__main__":
-    demo.launch()
+    demo.launch(mcp_server=True)

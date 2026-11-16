@@ -5,7 +5,7 @@ from anthropic import Anthropic
 
 load_dotenv()
 api_key = os.getenv('ANTHROPIC_API_KEY')
-model = os.getenv('ANTHROPIC_MODEL', 'claude-3-haiku-20240307')
+model = os.getenv('ANTHROPIC_MODEL', 'claude-haiku-5-5')
 
 print(f'API Key found: {bool(api_key)}')
 print(f'API Key (first 20 chars): {api_key[:20] if api_key else "None"}')
