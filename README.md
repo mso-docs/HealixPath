@@ -31,6 +31,14 @@ HealixPath was built by **Mackenzie O'Brien** ([@mackenzietechdocs](https://hugg
 
 The official November 2025 hackathon submission lives at [MCP-1st-Birthday/TeamHealix](https://huggingface.co/spaces/MCP-1st-Birthday/TeamHealix) and is kept unchanged. This Space is the live, maintained copy.
 
+- **Project page:** [mso-docs.github.io/HealixPath](https://mso-docs.github.io/HealixPath/)
+- **Hackathon Space (frozen):** [MCP-1st-Birthday/TeamHealix](https://huggingface.co/spaces/MCP-1st-Birthday/TeamHealix)
+- **Live Space:** [mackenzietechdocs/HealixPath](https://huggingface.co/spaces/mackenzietechdocs/HealixPath)
+- **Collection:** [HealixPath](https://huggingface.co/collections/mackenzietechdocs/healixpath)
+- **GitHub:** [mso-docs/HealixPath](https://github.com/mso-docs/HealixPath)
+- **Demo video:** [youtu.be/zz5AliukXKk](https://youtu.be/zz5AliukXKk)
+
+
 ## Sign in with Hugging Face (free AI, no API key)
 
 This live copy no longer uses any paid API key. Text generation runs on open models through [Hugging Face Inference Providers](https://huggingface.co/docs/inference-providers), using **your own** Hugging Face account:

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HealixPath | Mackenzie O'Brien and DevRubenArevalo</title>
+  <meta name="description" content="HealixPath is an AI-powered persona storytelling engine. Official MCP 1st Birthday submission, live Space, collection, and source.">
+  <meta name="theme-color" content="#0f766e">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <style>
+    :root {
+      --bg: #f4faf8; --surface: #ffffff; --ink: #0f1f1c; --muted: #4d655f;
+      --line: #d7e8e3; --teal: #0f766e; --teal-2: #115e59; --mint: #ccfbf1;
+      --blue: #1d4e89; --serif: Georgia, "Iowan Old Style", "Palatino Linotype", serif;
+      --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+    * { box-sizing: border-box; } html, body { margin: 0; }
+    body { font-family: var(--sans); color: var(--ink); background: var(--bg); line-height: 1.6; }
+    a { color: var(--teal-2); } a:hover { color: var(--teal); }
+    .wrap { width: min(920px, calc(100% - 40px)); margin-inline: auto; }
+    header { background: linear-gradient(160deg, #0f766e 0%, #134e4a 45%, #1e3a5f 100%); color: #ecfdf5; padding: 2.6rem 0 3rem; }
+    header a { color: #ecfdf5; }
+    .eyebrow { letter-spacing: .12em; text-transform: uppercase; font-size: .72rem; font-weight: 700; color: #99f6e4; margin: 0 0 .8rem; }
+    h1 { font-family: var(--serif); font-weight: 600; font-size: clamp(2rem, 5vw, 3rem); letter-spacing: -.02em; line-height: 1.12; margin: 0 0 .8rem; }
+    .lede { max-width: 38rem; color: #d1fae5; font-size: 1.12rem; margin: 0 0 1rem; }
+    .byline { margin: 0 0 1.4rem; color: #a7f3d0; font-size: .95rem; }
+    .badges { display: flex; flex-wrap: wrap; gap: .5rem; }
+    .badge { display: inline-flex; align-items: center; gap: .35rem; text-decoration: none; border-radius: 999px; padding: .45rem .9rem; font-weight: 650; font-size: .88rem; background: #ecfdf5; color: var(--teal-2); }
+    .badge:hover { background: #fff; color: var(--teal); }
+    .badge.ghost { background: transparent; color: #ecfdf5; border: 1px solid rgba(236,253,245,.4); }
+    .badge.ghost:hover { background: rgba(255,255,255,.1); color: #fff; }
+    main { padding: 2.4rem 0 3rem; }
+    h2 { font-family: var(--serif); font-size: 1.55rem; margin: 0 0 .4rem; letter-spacing: -.015em; }
+    .kick { font-size: .75rem; letter-spacing: .1em; text-transform: uppercase; font-weight: 700; color: var(--muted); margin: 0 0 .25rem; }
+    .intro { color: var(--muted); margin: 0 0 1.1rem; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: .9rem; }
+    .card { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 1.1rem 1.2rem; }
+    .card h3 { margin: 0 0 .35rem; font-size: 1.02rem; }
+    .card p { margin: 0 0 .75rem; color: var(--muted); font-size: .95rem; }
+    .card .badge { background: var(--mint); }
+    .note { background: #ecfdf5; border: 1px solid #99f6e4; border-radius: 12px; padding: .9rem 1.1rem; color: var(--teal-2); margin: 1.4rem 0 0; font-size: .92rem; }
+    footer { border-top: 1px solid var(--line); padding: 1.4rem 0 2.2rem; color: var(--muted); font-size: .88rem; }
+    @media (max-width: 700px) { .grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <p class="eyebrow">Hugging Face MCP 1st Birthday Hackathon &middot; November 2025</p>
+      <h1>HealixPath</h1>
+      <p class="lede">An AI-powered persona storytelling engine. It turns a product, a problem, or a journey stage into structured stories for the people who will actually use the work.</p>
+      <p class="byline">Mackenzie O&rsquo;Brien, Mac Labs AI, and co-author DevRubenArevalo. Team Healix.</p>
+      <div class="badges">
+        <a class="badge" href="https://huggingface.co/spaces/MCP-1st-Birthday/TeamHealix">Hackathon Space</a>
+        <a class="badge" href="https://huggingface.co/spaces/mackenzietechdocs/HealixPath">Live Space</a>
+        <a class="badge ghost" href="https://huggingface.co/collections/mackenzietechdocs/healixpath">Collection</a>
+        <a class="badge ghost" href="https://github.com/mso-docs/HealixPath">GitHub</a>
+        <a class="badge ghost" href="https://youtu.be/zz5AliukXKk">Demo video</a>
+      </div>
+    </div>
+  </header>
+  <main class="wrap">
+    <p class="kick">Every artifact</p>
+    <h2>The submitted version stays frozen. The live Space is the one we keep updating.</h2>
+    <p class="intro">This page is the entry point for the project. The official contest Space is left exactly as it was submitted in November 2025. The live Space is a maintained copy, with Sign in with Hugging Face and open models through Inference Providers.</p>
+    <div class="grid">
+      <article class="card">
+        <h3>Hackathon version, frozen</h3>
+        <p>Official submission to the Hugging Face MCP 1st Birthday Hackathon. Pinned on the event organization. Last updated November 30, 2025, at 6:25 PM Eastern, at commit 2abb07f. It is not overwritten.</p>
+        <a class="badge" href="https://huggingface.co/spaces/MCP-1st-Birthday/TeamHealix">MCP-1st-Birthday/TeamHealix</a>
+      </article>
+      <article class="card">
+        <h3>Updated version</h3>
+        <p>The maintained copy on Mackenzie&rsquo;s Hugging Face account. Generation uses open models and the visitor&rsquo;s own Hugging Face allowance after sign-in.</p>
+        <a class="badge" href="https://huggingface.co/spaces/mackenzietechdocs/HealixPath">mackenzietechdocs/HealixPath</a>
+      </article>
+      <article class="card">
+        <h3>Collection and source</h3>
+        <p>Both Spaces, grouped together, and the GitHub repository for the maintained tree.</p>
+        <a class="badge" href="https://huggingface.co/collections/mackenzietechdocs/healixpath">Collection</a>
+        <a class="badge" href="https://github.com/mso-docs/HealixPath">GitHub</a>
+      </article>
+      <article class="card">
+        <h3>Demo video</h3>
+        <p>A walkthrough of HealixPath, also on Mackenzie&rsquo;s hackathon playlist.</p>
+        <a class="badge" href="https://youtu.be/zz5AliukXKk">Watch on YouTube</a>
+      </article>
+    </div>
+    <p class="note">The official event Space is left untouched. If a GitHub link on this page does not open, the repository may still be private; the Spaces and the collection are public.</p>
+  </main>
+  <footer>
+    <div class="wrap">
+      <p>Mackenzie O&rsquo;Brien, Mac Labs AI, and DevRubenArevalo. Submission to the Hugging Face MCP 1st Birthday Hackathon, November 2025.</p>
+      <p>No analytics, cookies, or third-party requests except the links you click.</p>
+    </div>
+  </footer>
+</body>
+</html>
