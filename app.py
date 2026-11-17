@@ -12,507 +12,326 @@ from pathlib import Path
 from dotenv import load_dotenv
 from huggingface_hub import InferenceClient
 
-# Modern CSS styling
+
+HEALIX_THEME = gr.themes.Base(
+    primary_hue="lime",
+    secondary_hue="green",
+    neutral_hue="zinc",
+    font=[gr.themes.GoogleFont("Outfit"), "ui-sans-serif", "system-ui", "sans-serif"],
+    font_mono=[gr.themes.GoogleFont("IBM Plex Mono"), "ui-monospace", "monospace"],
+).set(
+    body_background_fill="#050805",
+    body_background_fill_dark="#050805",
+    body_text_color="#f3ffe6",
+    body_text_color_dark="#f3ffe6",
+    background_fill_primary="#101e14",
+    background_fill_primary_dark="#101e14",
+    background_fill_secondary="#0a140c",
+    background_fill_secondary_dark="#0a140c",
+    border_color_accent="#b8ff3c",
+    border_color_accent_dark="#b8ff3c",
+    border_color_primary="rgba(184, 255, 60, 0.28)",
+    border_color_primary_dark="rgba(184, 255, 60, 0.28)",
+    button_primary_background_fill="#b8ff3c",
+    button_primary_background_fill_hover="#d4ff6b",
+    button_primary_background_fill_dark="#b8ff3c",
+    button_primary_background_fill_hover_dark="#d4ff6b",
+    button_primary_text_color="#06210f",
+    button_primary_text_color_hover="#06210f",
+    button_primary_text_color_dark="#06210f",
+    button_primary_text_color_hover_dark="#06210f",
+    button_primary_shadow="0 8px 24px rgba(184, 255, 60, 0.4)",
+    link_text_color="#b8ff3c",
+    link_text_color_dark="#b8ff3c",
+    block_radius="16px",
+    button_large_radius="12px",
+)
+
+# HealixPath identity (lime helix). Logic below this CSS is unchanged.
 CUSTOM_CSS = """
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Syne:wght@700;800&family=IBM+Plex+Mono:wght@400;500&display=swap');
 
 :root {
-    --bg: #050e0a;
-    --panel: #0b1812;
-    --card: linear-gradient(135deg, rgba(18, 64, 44, 0.94), rgba(10, 34, 24, 0.94));
-    --line: rgba(31, 132, 84, 0.6);
-    --accent: #1da05f;
-    --accent-strong: #167b46;
-    --muted: #9fd8b9;
-    --text: #f7fff9;
-    --text-dim: #c9e5d4;
-    --radius: 18px;
-    --shadow: 0 18px 60px rgba(4, 26, 18, 0.45);
+    --hp-void: #050805;
+    --hp-panel: #101e14;
+    --hp-lime: #b8ff3c;
+    --hp-lime-2: #d4ff6b;
+    --hp-mint: #9ef6c8;
+    --hp-foam: #f3ffe6;
+    --hp-text: #f3ffe6;
+    --hp-muted: #b4d7bc;
+    --hp-dim: #8aaf93;
+    --hp-line: rgba(184, 255, 60, 0.28);
+    --hp-glow: rgba(184, 255, 60, 0.5);
+    --hp-ink: #06210f;
+    --hp-display: "Syne", "Avenir Next", "Segoe UI", sans-serif;
+    --hp-body: "Outfit", "Segoe UI", system-ui, sans-serif;
 }
 
-* {
-    font-family: 'Manrope', 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+@media (prefers-color-scheme: light) {
+    :root {
+        --hp-void: #f4ffea;
+        --hp-panel: #ffffff;
+        --hp-lime: #1f7a00;
+        --hp-lime-2: #278200;
+        --hp-mint: #0c6b3a;
+        --hp-foam: #0b1a10;
+        --hp-text: #0b1a10;
+        --hp-muted: #245c38;
+        --hp-dim: #3c6a4c;
+        --hp-line: rgba(31, 107, 16, 0.3);
+        --hp-glow: rgba(39, 130, 0, 0.22);
+        --hp-ink: #f4ffea;
+    }
 }
 
-body,
-html {
-    background: radial-gradient(circle at 18% 18%, rgba(29, 160, 96, 0.08), transparent 32%),
-                radial-gradient(circle at 82% 12%, rgba(18, 92, 59, 0.12), transparent 38%),
-                var(--bg);
-    color: var(--text);
+html, body, .gradio-container, .gradio-container .main, .app, .contain {
+    font-family: var(--hp-body) !important;
+    background: var(--hp-void) !important;
+    color: var(--hp-text) !important;
+}
+
+body, html {
+    background:
+        radial-gradient(900px 500px at 85% -10%, rgba(184, 255, 60, 0.08), transparent 55%),
+        radial-gradient(600px 400px at 0% 10%, rgba(158, 246, 200, 0.06), transparent 50%),
+        var(--hp-void) !important;
 }
 
 .gradio-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 24px;
-    background: transparent;
+    max-width: 1180px !important;
+    margin: 0 auto !important;
+    padding: 20px 18px 32px !important;
+    background: transparent !important;
 }
 
-.gr-blocks,
-.gr-page,
-#mount {
-    background: transparent;
-}
+.gradio-container a { color: var(--hp-lime) !important; }
 
-a {
-    color: var(--accent);
-}
-
-.header-shell {
-    background: linear-gradient(135deg, rgba(18, 64, 44, 0.95), rgba(10, 34, 24, 0.92));
-    border: 1px solid var(--line);
-    border-radius: 20px;
-    padding: 28px 24px;
-    position: relative;
-    overflow: hidden;
-    box-shadow: var(--shadow);
-}
-
-.header-shell::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at 25% 20%, rgba(34, 197, 94, 0.18), transparent 50%);
-    pointer-events: none;
-}
-
-.header-shell h1 {
-    font-size: clamp(32px, 5vw, 46px);
-    font-weight: 700;
-    letter-spacing: -0.5px;
-    margin: 6px 0 10px;
-    color: var(--text);
-}
-
-.header-shell .eyebrow {
-    display: inline-flex;
+/* ---- Hero ---- */
+.hp-hero {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 1.25rem;
     align-items: center;
-    gap: 8px;
-    padding: 6px 12px;
-    border-radius: 999px;
-    border: 1px solid var(--line);
-    background: rgba(34, 197, 94, 0.08);
-    color: var(--muted);
-    font-weight: 600;
-    font-size: 12px;
-    letter-spacing: 0.3px;
+    background:
+        radial-gradient(520px 180px at 12% 50%, var(--hp-glow), transparent 60%),
+        linear-gradient(135deg, color-mix(in srgb, var(--hp-panel) 92%, black), var(--hp-panel));
+    border: 1px solid var(--hp-line);
+    border-radius: 24px;
+    padding: 20px 24px;
+    box-shadow: 0 0 0 1px rgba(184, 255, 60, 0.08), 0 24px 60px rgba(0, 0, 0, 0.35), 0 0 80px rgba(184, 255, 60, 0.08);
+    overflow: hidden;
+    position: relative;
 }
-
-.header-shell p {
+.hp-helix-wrap {
+    width: 120px;
+    height: 150px;
+    position: relative;
+}
+.hp-helix-svg { width: 100%; height: 100%; filter: drop-shadow(0 0 12px var(--hp-glow)); }
+.hp-helix-svg .strand {
+    stroke-dasharray: 28 8;
+    animation: strand-flow 7s linear infinite;
+}
+.hp-helix-svg .strand.b { animation-duration: 9s; animation-direction: reverse; }
+@keyframes strand-flow {
+    to { stroke-dashoffset: -180; }
+}
+.hp-copy h1 {
+    font-family: var(--hp-display) !important;
+    font-weight: 800 !important;
+    letter-spacing: -0.06em;
+    font-size: clamp(2.4rem, 5vw, 4.2rem) !important;
+    line-height: 0.92 !important;
+    margin: 0.15rem 0 0.4rem !important;
+    color: var(--hp-text) !important;
+}
+.hp-copy h1 span {
+    color: var(--hp-lime);
+    text-shadow: 0 0 28px var(--hp-glow);
+}
+.hp-kicker {
     margin: 0;
-    color: var(--text-dim);
-    font-size: 15px;
-    line-height: 1.6;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--hp-mint);
+}
+.hp-tag {
+    font-family: var(--hp-display);
+    font-weight: 700;
+    font-size: clamp(1.05rem, 2vw, 1.4rem);
+    letter-spacing: -0.03em;
+    color: var(--hp-mint);
+    margin: 0 0 0.45rem;
+}
+.hp-lede {
+    margin: 0;
+    color: var(--hp-muted);
+    font-size: 0.98rem;
+    line-height: 1.55;
+    max-width: 46rem;
 }
 
 .card-container {
-    background: var(--card);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    padding: 18px 18px;
-    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.28);
-    margin-bottom: 18px;
+    background: var(--hp-panel);
+    border: 1px solid var(--hp-line);
+    border-radius: 16px;
+    padding: 16px 18px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.22);
 }
 
-.tabs,
-.tab-nav {
-    border: 0;
-    background: transparent;
+/* ---- Tabs ---- */
+.tabs, .tab-nav { border: 0; background: transparent; }
+.gradio-container .tabs > div:first-child,
+.gradio-container .tab-nav,
+.gradio-container nav[role="tablist"] {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+    padding: 6px !important;
+    background: color-mix(in srgb, var(--hp-panel) 90%, black) !important;
+    border: 1px solid var(--hp-line) !important;
+    border-radius: 16px !important;
 }
-
-.tab-nav {
-    display: flex;
-    gap: 6px;
-    padding: 6px;
-    margin-bottom: 12px;
-    background: linear-gradient(135deg, rgba(10, 34, 24, 0.85), rgba(8, 24, 17, 0.85));
-    border: 1px solid var(--line);
-    border-radius: 14px;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02), 0 10px 24px rgba(0, 0, 0, 0.3);
-}
-
-.tab-nav button {
-    border: 1px solid var(--line);
-    background: linear-gradient(135deg, rgba(12, 42, 30, 0.9), rgba(10, 34, 24, 0.9));
-    color: var(--text);
-    padding: 12px 16px;
-    border-radius: 12px;
-    font-weight: 600;
-    transition: all 0.2s ease;
-    position: relative;
-    box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.35);
-}
-
-.tab-nav button:hover {
-    border-color: var(--line);
-    color: var(--text);
-    background: linear-gradient(135deg, rgba(29, 160, 96, 0.16), rgba(22, 123, 70, 0.18));
-}
-
-.tab-nav button[aria-selected="true"] {
-    background: linear-gradient(135deg, rgba(29, 160, 96, 0.18), rgba(22, 123, 70, 0.22));
-    color: var(--text);
-    border-color: var(--line);
-    box-shadow: 0 10px 22px rgba(22, 123, 70, 0.24);
-    overflow: hidden;
-}
-
-.tab-nav button[aria-selected="true"]::after {
-    content: "";
-    position: absolute;
-    left: 12px;
-    right: 12px;
-    bottom: 4px;
-    height: 3px;
-    border-radius: 999px;
-    background: rgba(10, 40, 26, 0.95);
-    box-shadow: 0 2px 8px rgba(10, 40, 26, 0.6);
-}
-
-/* force underline on gradio tab items */
-.gradio-container .tabitem[aria-selected="true"],
-.gradio-container .gr-tabitem[aria-selected="true"],
-.gradio-container .tabs button[aria-selected="true"] {
-    border-bottom: 3px solid rgba(10, 40, 26, 0.95) !important;
-    box-shadow: none !important;
-    position: relative;
-}
-
-.gradio-container .tabitem[aria-selected="true"]::after,
-.gradio-container .tabs button[aria-selected="true"]::after {
-    content: "";
-    display: block;
-    position: absolute;
-    left: 12px;
-    right: 12px;
-    bottom: 2px;
-    height: 3px;
-    border-radius: 999px;
-    background: rgba(10, 40, 26, 0.95);
-    box-shadow: 0 2px 8px rgba(10, 40, 26, 0.6);
-}
-
-/* fallback for Gradio tab buttons rendered as .tabitem without wrapper */
 .gradio-container .tabs button,
-.gradio-container .tabs .tabitem,
-.gradio-container .gr-tabs button,
-.gradio-container .gr-tabs .tabitem {
-    background: linear-gradient(135deg, rgba(12, 42, 30, 0.9), rgba(10, 34, 24, 0.9)) !important;
-    color: var(--text) !important;
-    border: 1px solid var(--line) !important;
-    border-radius: 12px !important;
-    padding: 12px 16px !important;
-    box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.35) !important;
-}
-
-.gradio-container .tabs button[aria-selected="true"],
-.gradio-container .gr-tabs button[aria-selected="true"],
-.gradio-container .tabs .tabitem[aria-selected="true"],
-.gradio-container .gr-tabs .tabitem[aria-selected="true"] {
-    background: linear-gradient(135deg, rgba(29, 160, 96, 0.18), rgba(22, 123, 70, 0.22)) !important;
-    border-color: var(--line) !important;
-    color: var(--text) !important;
-    position: relative;
-}
-
-.gradio-container .tabs button[aria-selected="true"]::after,
-.gradio-container .gr-tabs button[aria-selected="true"]::after,
-.gradio-container .tabs .tabitem[aria-selected="true"]::after,
-.gradio-container .gr-tabs .tabitem[aria-selected="true"]::after {
-    content: "";
-    position: absolute;
-    left: 12px;
-    right: 12px;
-    bottom: 2px;
-    height: 3px;
-    border-radius: 999px;
-    background: rgba(10, 40, 26, 0.95);
-    box-shadow: 0 2px 8px rgba(10, 40, 26, 0.6);
-}
-
-.gr-row {
-    gap: 14px;
-    align-items: stretch;
-}
-
-label {
-    color: var(--text);
-    font-weight: 600;
-    font-size: 14px;
-    margin-bottom: 8px;
-    display: inline-block;
-}
-
-input[type="text"],
-textarea,
-select,
-.gradio-textbox input,
-.gradio-textbox textarea,
-.gradio-dropdown select {
-    background: linear-gradient(135deg, #0b1d14, #0a1610);
-    border: 1px solid var(--line);
-    border-radius: 10px;
-    color: var(--text);
-    padding: 0.5em 0.75em;
-    font-size: 14px;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-input[type="text"]:focus,
-textarea:focus,
-select:focus,
-.gradio-textbox input:focus,
-.gradio-textbox textarea:focus,
-.gradio-dropdown select:focus {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(29, 160, 96, 0.25);
-    outline: none;
-    transform: translateY(-1px);
-    background: linear-gradient(135deg, #0f2a1c, #0b1f15);
-}
-
-input::placeholder,
-textarea::placeholder {
-    color: var(--muted);
-}
-
-.gradio-dropdown select,
-.gradio-dropdown .wrap,
-.gradio-dropdown button,
-[data-testid="dropdown"] .single-select,
-[data-testid="dropdown"] .wrap,
-[data-testid="dropdown"] select,
-[data-testid="dropdown"] button {
-    background: linear-gradient(135deg, #0b2217, #0a1912) !important;
-    border: 0 !important;
-    color: var(--text) !important;
-    border-radius: 12px !important;
-}
-
-.gradio-dropdown .wrap.svelte-1hxfprf,
-.gradio-container .container .wrap.svelte-1hxfprf,
-.gradio-container .container .wrap-inner.svelte-1hxfprf,
-.gradio-container .container .secondary-wrap.svelte-1hxfprf {
-    background: linear-gradient(135deg, #0b2217, #0a1912) !important;
-    border: 1px solid var(--line) !important;
-    border-radius: 12px !important;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02), 0 10px 18px rgba(0, 0, 0, 0.25) !important;
-    color: var(--text) !important;
-    padding: 0 !important;
-}
-
-.gradio-container .container.svelte-1hfxrpf,
-.gradio-container .container.svelte-1hfxrpf .wrap,
-.gradio-container .container.svelte-1hfxrpf .wrap-inner,
-.gradio-container .container.svelte-1hfxrpf .secondary-wrap {
-    background: linear-gradient(135deg, #0b2217, #0a1912) !important;
-    border: 1px solid var(--line) !important;
-    border-radius: 12px !important;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02), 0 10px 18px rgba(0, 0, 0, 0.25) !important;
-    color: var(--text) !important;
-}
-
-.gradio-container .container.svelte-1hfxrpf input.border-none,
-.gradio-container .container.svelte-1hfxrpf input.svelte-1hfxrpf,
-.gradio-container .container.svelte-1hfxrpf input {
+.gradio-container nav[role="tablist"] button,
+.gradio-container .tab-nav button {
+    font-family: var(--hp-body) !important;
+    font-weight: 600 !important;
+    color: var(--hp-text) !important;
     background: transparent !important;
-    color: var(--text) !important;
-    border: none !important;
-    padding: 0.5em 0.75em !important;
-}
-
-.gradio-container .container.svelte-1hfxrpf .icon-wrap.svelte-1hfxrpf,
-.gradio-container .container.svelte-1hfxrpf .dropdown-arrow {
-    color: var(--text) !important;
-    fill: var(--text) !important;
-}
-
-.gradio-dropdown,
-.gradio-dropdown > div,
-.gradio-dropdown > div > div {
-    background: linear-gradient(135deg, #0b2217, #0a1912) !important;
-    border: 1px solid var(--line) !important;
+    border: 1px solid transparent !important;
     border-radius: 12px !important;
-    color: var(--text) !important;
+    padding: 10px 14px !important;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease, border-color 0.18s ease !important;
+}
+.gradio-container .tabs button:hover,
+.gradio-container nav[role="tablist"] button:hover {
+    border-color: var(--hp-line) !important;
+    background: color-mix(in srgb, var(--hp-lime) 12%, var(--hp-panel)) !important;
+    transform: translateY(-1px);
+}
+.gradio-container .tabs button[aria-selected="true"],
+.gradio-container nav[role="tablist"] button[aria-selected="true"],
+.gradio-container .tab-nav button.selected {
+    background: var(--hp-lime) !important;
+    color: var(--hp-ink) !important;
+    border-color: transparent !important;
+    box-shadow: 0 0 24px var(--hp-glow) !important;
 }
 
-.gradio-dropdown .wrap:focus-within,
-.gradio-dropdown select:focus,
-[data-testid="dropdown"] select:focus,
-[data-testid="dropdown"] .wrap:focus-visible,
-[data-testid="dropdown"] .wrap:focus-within {
-    box-shadow: 0 0 0 3px rgba(29, 160, 96, 0.25) !important;
-    border-color: var(--accent) !important;
+/* ---- Inputs ---- */
+label, .gradio-container label {
+    color: var(--hp-text) !important;
+    font-weight: 600 !important;
+    font-family: var(--hp-body) !important;
+}
+.gradio-container input,
+.gradio-container textarea,
+.gradio-container select {
+    background: color-mix(in srgb, var(--hp-void) 80%, var(--hp-panel)) !important;
+    color: var(--hp-text) !important;
+    border: 1px solid var(--hp-line) !important;
+    border-radius: 12px !important;
+}
+.gradio-container input:focus,
+.gradio-container textarea:focus,
+.gradio-container select:focus {
+    outline: none !important;
+    border-color: var(--hp-lime) !important;
+    box-shadow: 0 0 0 3px var(--hp-glow) !important;
 }
 
-.gradio-dropdown .options,
-[data-testid="dropdown"] .options {
-    background: #0b2217 !important;
-    border: 1px solid var(--line) !important;
-    color: var(--text) !important;
+/* ---- Buttons ---- */
+.gradio-container button,
+.gradio-container .gr-button {
+    font-family: var(--hp-body) !important;
+    font-weight: 700 !important;
+    border-radius: 12px !important;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease !important;
+}
+.gradio-container button.primary,
+.gradio-container .lg.primary,
+.gradio-container .primary,
+.gradio-container button[variant="primary"] {
+    background: var(--hp-lime) !important;
+    color: var(--hp-ink) !important;
+    border: 0 !important;
+    box-shadow: 0 8px 24px var(--hp-glow) !important;
+}
+.gradio-container button:hover,
+.gradio-container .gr-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px var(--hp-glow) !important;
+}
+.gradio-container button:active { transform: translateY(0); }
+.gradio-container button:focus-visible {
+    outline: 2px solid var(--hp-lime) !important;
+    outline-offset: 3px !important;
 }
 
-.gradio-dropdown .option,
-[data-testid="dropdown"] .option {
-    background: #0b2217 !important;
-    color: var(--text) !important;
+/* Login should stay obvious even if Gradio marks it secondary */
+.gradio-container button:not(.primary) {
+    background: color-mix(in srgb, var(--hp-panel) 80%, black) !important;
+    color: var(--hp-text) !important;
+    border: 1px solid var(--hp-line) !important;
 }
 
-.gradio-container .gr-panel,
-.gradio-container .gr-box,
-.gradio-container .gr-form,
-.gradio-container .gr-group,
-.gradio-container .gr-block,
+/* Make the first action row (sign-in) pop */
+.gradio-container .form,
 .gradio-container .block,
 .gradio-container .panel,
-.gradio-container .form,
-.gradio-container .wrap {
-    background: linear-gradient(135deg, #0b1d14, #0a1610);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.24);
-}
-
-/* nested content stays transparent to let wrappers show gradient */
-.gradio-container .gr-panel *,
-.gradio-container .gr-box *,
-.gradio-container .block *,
-.gradio-container .panel * {
-    background-color: transparent;
-}
-
-/* reduce nested wrapper outlines for dropdown blocks */
-.gradio-container .gr-group .gr-column,
-.gradio-container .gr-group .gr-form,
-.gradio-container .gr-group .gr-box {
-    border: none !important;
-    box-shadow: none !important;
-    background: transparent !important;
-}
-
-.gradio-container .container.svelte-1hfxrpf,
-.gradio-container .container.svelte-1hfxrpf {
-    border: 1px solid var(--line) !important;
-    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18) !important;
-    background: linear-gradient(135deg, rgb(11, 29, 20), rgb(10, 22, 16)) !important;
-}
-
-/* keep inner wraps clean to avoid stacked outlines */
-.gradio-container .container.svelte-1hfxrpf .wrap,
-.gradio-container .container.svelte-1hfxrpf .wrap-inner,
-.gradio-container .container.svelte-1hfxrpf .secondary-wrap {
-    border: 0 !important;
-    box-shadow: none !important;
-    background: transparent !important;
-}
-
-/* inner-most wrapper should have no outline */
-.gradio-container .container.svelte-1hfxrpf .secondary-wrap {
-    border: none !important;
-    box-shadow: none !important;
-}
-
-
-button,
-.gradio-button,
-.gr-button {
-    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-strong) 100%);
-    border: none;
-    color: #f7fff9;
-    font-weight: 700;
-    font-size: 14px;
-    padding: 14px 20px !important;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    box-shadow: 0 10px 20px rgba(20, 111, 67, 0.28);
-}
-
-button:hover,
-.gradio-button:hover,
-.gr-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 14px 26px rgba(20, 111, 67, 0.34);
-}
-
-button:active,
-.gradio-button:active,
-.gr-button:active {
-    transform: translateY(0);
-    box-shadow: 0 8px 16px rgba(20, 111, 67, 0.3);
-}
-
-.gradio-button:disabled {
-    opacity: 0.65;
-    cursor: not-allowed;
-    box-shadow: none;
-    transform: none;
+.gradio-container .gr-group,
+.gradio-container .gr-box {
+    background: var(--hp-panel) !important;
+    border-color: var(--hp-line) !important;
+    border-radius: 16px !important;
 }
 
 [data-testid="textbox"] textarea {
-    background: linear-gradient(135deg, #0c2116, #0a1a12);
-    font-family: 'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;
-    line-height: 1.55;
-    font-size: 13px;
+    font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace !important;
+    line-height: 1.55 !important;
 }
 
-.gr-markdown h2,
-.gr-markdown h3 {
-    color: var(--text);
-    margin-bottom: 6px;
+.gradio-container .markdown-text, .gradio-container .prose, .gradio-container p {
+    color: var(--hp-muted);
+}
+.gradio-container h2, .gradio-container h3 {
+    font-family: var(--hp-display) !important;
+    color: var(--hp-text) !important;
+    letter-spacing: -0.03em;
 }
 
-.gr-markdown p {
-    color: var(--text-dim);
-    line-height: 1.6;
+.hp-foot {
+    text-align: center;
+    margin-top: 28px;
+    padding: 18px 8px 4px;
+    border-top: 1px solid var(--hp-line);
+    color: var(--hp-dim);
+    font-size: 0.88rem;
+}
+.hp-foot p { margin: 0.2rem 0; }
+.hp-foot a { color: var(--hp-lime) !important; }
+
+footer, .footer, [data-testid="footer"] {
+    background: transparent !important;
+    color: var(--hp-dim) !important;
 }
 
-footer,
-.footer,
-[data-testid="footer"] {
-    border-top: 1px solid var(--line);
-    margin-top: 18px;
-    padding-top: 12px;
-    color: var(--text-dim);
-    background: transparent;
+@media (max-width: 800px) {
+    .hp-hero { grid-template-columns: 1fr; padding: 16px; }
+    .hp-helix-wrap { width: 96px; height: 120px; }
 }
 
-footer * {
-    color: var(--text-dim);
-}
-
-::-webkit-scrollbar {
-    width: 10px;
-}
-
-::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.02);
-}
-
-::-webkit-scrollbar-thumb {
-    background: rgba(34, 197, 94, 0.35);
-    border-radius: 6px;
-}
-
-@media (max-width: 900px) {
-    .gradio-container {
-        padding: 18px;
+@media (prefers-reduced-motion: reduce) {
+    .hp-helix-svg .strand { animation: none !important; }
+    .gradio-container button,
+    .gradio-container .tabs button {
+        transition: none !important;
     }
-
-    .header-shell {
-        padding: 22px 18px;
-    }
-
-    .card-container {
-        padding: 14px;
-    }
-
-    .tab-nav {
-        flex-wrap: wrap;
-    }
+    .gradio-container button:hover { transform: none !important; }
 }
 """
 
@@ -1017,15 +836,23 @@ Return format: [persona1, persona2, ...]"""
         return json.dumps({"error": f"Failed to generate personas: {str(e)}"}, indent=2)
 
 # Build the Gradio interface
-with gr.Blocks(title="HealixPath - AI Persona Storytelling", css=CUSTOM_CSS) as demo:
+with gr.Blocks(title="HealixPath — stories that spiral from a persona", theme=HEALIX_THEME, css=CUSTOM_CSS) as demo:
     gr.HTML(
         """
-    <div class="header-shell">
-        <span class="eyebrow">Persona storytelling workspace</span>
-        <h1>HealixPath</h1>
-        <p>AI-powered generator for persona-driven stories, journeys, and impact narratives.</p>
+    <div class="hp-hero">
+        <div class="hp-helix-wrap" aria-hidden="true"><svg class="hp-helix-svg" viewBox="0 0 160 200" fill="none" aria-hidden="true" focusable="false">
+  <path class="strand a" d="M 87.2,8.0 L 89.7,9.5 L 92.3,11.1 L 94.7,12.6 L 97.1,14.2 L 99.4,15.7 L 101.6,17.3 L 103.7,18.8 L 105.6,20.4 L 107.4,21.9 L 109.1,23.5 L 110.5,25.0 L 111.9,26.6 L 113.0,28.1 L 114.0,29.6 L 114.8,31.2 L 115.4,32.7 L 115.8,34.3 L 116.0,35.8 L 116.0,37.4 L 115.8,38.9 L 115.4,40.5 L 114.8,42.0 L 114.1,43.6 L 113.1,45.1 L 112.0,46.7 L 110.7,48.2 L 109.2,49.7 L 107.6,51.3 L 105.8,52.8 L 103.8,54.4 L 101.8,55.9 L 99.6,57.5 L 97.3,59.0 L 95.0,60.6 L 92.5,62.1 L 90.0,63.7 L 87.4,65.2 L 84.8,66.8 L 82.1,68.3 L 79.5,69.8 L 76.8,71.4 L 74.2,72.9 L 71.5,74.5 L 69.0,76.0 L 66.5,77.6 L 64.1,79.1 L 61.7,80.7 L 59.5,82.2 L 57.4,83.8 L 55.3,85.3 L 53.5,86.9 L 51.8,88.4 L 50.2,89.9 L 48.8,91.5 L 47.5,93.0 L 46.5,94.6 L 45.6,96.1 L 44.9,97.7 L 44.4,99.2 L 44.1,100.8 L 44.0,102.3 L 44.1,103.9 L 44.4,105.4 L 44.9,107.0 L 45.5,108.5 L 46.4,110.1 L 47.4,111.6 L 48.7,113.1 L 50.0,114.7 L 51.6,116.2 L 53.3,117.8 L 55.2,119.3 L 57.2,120.9 L 59.3,122.4 L 61.5,124.0 L 63.8,125.5 L 66.3,127.1 L 68.8,128.6 L 71.3,130.2 L 73.9,131.7 L 76.6,133.2 L 79.2,134.8 L 81.9,136.3 L 84.5,137.9 L 87.2,139.4 L 89.7,141.0 L 92.3,142.5 L 94.7,144.1 L 97.1,145.6 L 99.4,147.2 L 101.6,148.7 L 103.7,150.3 L 105.6,151.8 L 107.4,153.3 L 109.1,154.9 L 110.5,156.4 L 111.9,158.0 L 113.0,159.5 L 114.0,161.1 L 114.8,162.6 L 115.4,164.2 L 115.8,165.7 L 116.0,167.3 L 116.0,168.8 L 115.8,170.4 L 115.4,171.9 L 114.8,173.4 L 114.1,175.0 L 113.1,176.5 L 112.0,178.1 L 110.7,179.6 L 109.2,181.2 L 107.6,182.7 L 105.8,184.3 L 103.8,185.8 L 101.8,187.4 L 99.6,188.9 L 97.3,190.5 L 95.0,192.0" stroke="#B8FF3C" stroke-width="5.5" stroke-linecap="round"/>
+  <path class="strand b" d="M 72.8,8.0 L 70.3,9.5 L 67.7,11.1 L 65.3,12.6 L 62.9,14.2 L 60.6,15.7 L 58.4,17.3 L 56.3,18.8 L 54.4,20.4 L 52.6,21.9 L 50.9,23.5 L 49.5,25.0 L 48.1,26.6 L 47.0,28.1 L 46.0,29.6 L 45.2,31.2 L 44.6,32.7 L 44.2,34.3 L 44.0,35.8 L 44.0,37.4 L 44.2,38.9 L 44.6,40.5 L 45.2,42.0 L 45.9,43.6 L 46.9,45.1 L 48.0,46.7 L 49.3,48.2 L 50.8,49.7 L 52.4,51.3 L 54.2,52.8 L 56.2,54.4 L 58.2,55.9 L 60.4,57.5 L 62.7,59.0 L 65.0,60.6 L 67.5,62.1 L 70.0,63.7 L 72.6,65.2 L 75.2,66.8 L 77.9,68.3 L 80.5,69.8 L 83.2,71.4 L 85.8,72.9 L 88.5,74.5 L 91.0,76.0 L 93.5,77.6 L 95.9,79.1 L 98.3,80.7 L 100.5,82.2 L 102.6,83.8 L 104.7,85.3 L 106.5,86.9 L 108.2,88.4 L 109.8,89.9 L 111.2,91.5 L 112.5,93.0 L 113.5,94.6 L 114.4,96.1 L 115.1,97.7 L 115.6,99.2 L 115.9,100.8 L 116.0,102.3 L 115.9,103.9 L 115.6,105.4 L 115.1,107.0 L 114.5,108.5 L 113.6,110.1 L 112.6,111.6 L 111.3,113.1 L 110.0,114.7 L 108.4,116.2 L 106.7,117.8 L 104.8,119.3 L 102.8,120.9 L 100.7,122.4 L 98.5,124.0 L 96.2,125.5 L 93.7,127.1 L 91.2,128.6 L 88.7,130.2 L 86.1,131.7 L 83.4,133.2 L 80.8,134.8 L 78.1,136.3 L 75.5,137.9 L 72.8,139.4 L 70.3,141.0 L 67.7,142.5 L 65.3,144.1 L 62.9,145.6 L 60.6,147.2 L 58.4,148.7 L 56.3,150.3 L 54.4,151.8 L 52.6,153.3 L 50.9,154.9 L 49.5,156.4 L 48.1,158.0 L 47.0,159.5 L 46.0,161.1 L 45.2,162.6 L 44.6,164.2 L 44.2,165.7 L 44.0,167.3 L 44.0,168.8 L 44.2,170.4 L 44.6,171.9 L 45.2,173.4 L 45.9,175.0 L 46.9,176.5 L 48.0,178.1 L 49.3,179.6 L 50.8,181.2 L 52.4,182.7 L 54.2,184.3 L 56.2,185.8 L 58.2,187.4 L 60.4,188.9 L 62.7,190.5 L 65.0,192.0" stroke="#9EF6C8" stroke-width="5.5" stroke-linecap="round"/>
+  <line x1="114.0" y1="29.6" x2="46.0" y2="29.6" stroke="#B8FF3C" stroke-width="3" stroke-linecap="round" opacity="1"/><circle cx="114.0" cy="29.6" r="3" fill="#B8FF3C" opacity="1"/><circle cx="46.0" cy="29.6" r="3" fill="#9EF6C8" opacity="1"/><line x1="110.7" y1="48.2" x2="49.3" y2="48.2" stroke="#B8FF3C" stroke-width="3" stroke-linecap="round" opacity="1"/><circle cx="110.7" cy="48.2" r="3" fill="#B8FF3C" opacity="1"/><circle cx="49.3" cy="48.2" r="3" fill="#9EF6C8" opacity="1"/><line x1="87.4" y1="65.2" x2="72.6" y2="65.2" stroke="#B8FF3C" stroke-width="3" stroke-linecap="round" opacity="1"/><circle cx="87.4" cy="65.2" r="3" fill="#B8FF3C" opacity="1"/><circle cx="72.6" cy="65.2" r="3" fill="#9EF6C8" opacity="1"/><line x1="59.5" y1="82.2" x2="100.5" y2="82.2" stroke="#9EF6C8" stroke-width="2" stroke-linecap="round" opacity="0.45"/><circle cx="59.5" cy="82.2" r="3" fill="#9EF6C8" opacity="0.45"/><circle cx="100.5" cy="82.2" r="3" fill="#B8FF3C" opacity="0.45"/><line x1="44.1" y1="100.8" x2="115.9" y2="100.8" stroke="#9EF6C8" stroke-width="2" stroke-linecap="round" opacity="0.45"/><circle cx="44.1" cy="100.8" r="3" fill="#9EF6C8" opacity="0.45"/><circle cx="115.9" cy="100.8" r="3" fill="#B8FF3C" opacity="0.45"/><line x1="53.3" y1="117.8" x2="106.7" y2="117.8" stroke="#9EF6C8" stroke-width="2" stroke-linecap="round" opacity="0.45"/><circle cx="53.3" cy="117.8" r="3" fill="#9EF6C8" opacity="0.45"/><circle cx="106.7" cy="117.8" r="3" fill="#B8FF3C" opacity="0.45"/><line x1="105.6" y1="151.8" x2="54.4" y2="151.8" stroke="#B8FF3C" stroke-width="3" stroke-linecap="round" opacity="1"/><circle cx="105.6" cy="151.8" r="3" fill="#B8FF3C" opacity="1"/><circle cx="54.4" cy="151.8" r="3" fill="#9EF6C8" opacity="1"/><line x1="115.8" y1="170.4" x2="44.2" y2="170.4" stroke="#B8FF3C" stroke-width="3" stroke-linecap="round" opacity="1"/><circle cx="115.8" cy="170.4" r="3" fill="#B8FF3C" opacity="1"/><circle cx="44.2" cy="170.4" r="3" fill="#9EF6C8" opacity="1"/>
+</svg></div>
+        <div class="hp-copy">
+            <p class="hp-kicker">Team Healix · persona storytelling</p>
+            <h1>Healix<span>Path</span></h1>
+            <p class="hp-tag">Stories that spiral from a persona.</p>
+            <p class="hp-lede">Sign in with Hugging Face to generate stories, journeys, and personas on free open models, using your own allowance. Co-authored with DevRubenArevalo.</p>
+        </div>
     </div>
-    """
+"""
     )
 
     with gr.Row():
@@ -1045,7 +872,7 @@ with gr.Blocks(title="HealixPath - AI Persona Storytelling", css=CUSTOM_CSS) as 
         """
     <div class="card-container" style="margin-bottom: 26px;">
         <p style="margin: 0; color: var(--text-dim); font-size: 15px; line-height: 1.6;">
-            Choose a persona or add your own, then craft structured narratives to inform product decisions and user experiences.
+            Choose a persona or add your own, then craft structured narratives to inform product decisions and user experiences. Sign in to generate; browsing personas works while signed out.
         </p>
     </div>
     """
@@ -1308,13 +1135,16 @@ with gr.Blocks(title="HealixPath - AI Persona Storytelling", css=CUSTOM_CSS) as 
 
     gr.HTML(
         """
-    <div style="text-align: center; margin-top: 32px; padding: 16px; border-top: 1px solid var(--line); color: var(--text-dim);">
-        <p style="font-size: 13px; margin: 0;">
-            HealixPath - AI-powered persona storytelling engine<br>
-            <span style="color: var(--muted);">Open models via Hugging Face Inference Providers &amp; Gradio</span>
+    <div class="hp-foot">
+        <p>HealixPath — Mackenzie O&rsquo;Brien, Mac Labs AI, and DevRubenArevalo.</p>
+        <p class="hp-foot-links">
+            <a href="https://mso-docs.github.io/HealixPath/">Project page</a>
+            · <a href="https://huggingface.co/spaces/MCP-1st-Birthday/TeamHealix">Frozen hackathon Space</a>
+            · <a href="https://huggingface.co/collections/mackenzietechdocs/healixpath">Collection</a>
+            · Open models via Hugging Face Inference Providers
         </p>
     </div>
-    """
+"""
     )
 if __name__ == "__main__":
     demo.launch(mcp_server=True)

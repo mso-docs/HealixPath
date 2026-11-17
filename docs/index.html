@@ -2,97 +2,465 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>HealixPath | Mackenzie O'Brien and DevRubenArevalo</title>
-  <meta name="description" content="HealixPath is an AI-powered persona storytelling engine. Official MCP 1st Birthday submission, live Space, collection, and source.">
-  <meta name="theme-color" content="#0f766e">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>HealixPath — stories that spiral from a persona</title>
+  <meta name="description" content="HealixPath is an AI-powered persona storytelling engine. The official Hugging Face MCP 1st Birthday submission stays frozen; this page is the entry point for the live Space, collection, GitHub repository, and demo video.">
+  <meta name="theme-color" content="#050805">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <style>
+    @font-face { font-family: Syne; src: url("assets/fonts/syne-700.woff2") format("woff2"); font-weight: 700; font-style: normal; font-display: swap; }
+    @font-face { font-family: Syne; src: url("assets/fonts/syne-800.woff2") format("woff2"); font-weight: 800; font-style: normal; font-display: swap; }
+    @font-face { font-family: Outfit; src: url("assets/fonts/outfit-400.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+    @font-face { font-family: Outfit; src: url("assets/fonts/outfit-500.woff2") format("woff2"); font-weight: 500; font-style: normal; font-display: swap; }
+    @font-face { font-family: Outfit; src: url("assets/fonts/outfit-700.woff2") format("woff2"); font-weight: 700; font-style: normal; font-display: swap; }
+
     :root {
-      --bg: #f4faf8; --surface: #ffffff; --ink: #0f1f1c; --muted: #4d655f;
-      --line: #d7e8e3; --teal: #0f766e; --teal-2: #115e59; --mint: #ccfbf1;
-      --blue: #1d4e89; --serif: Georgia, "Iowan Old Style", "Palatino Linotype", serif;
-      --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      --void: #050805;
+      --void-2: #0a140c;
+      --panel: #101e14;
+      --lime: #b8ff3c;
+      --lime-2: #d4ff6b;
+      --mint: #9ef6c8;
+      --foam: #f3ffe6;
+      --text: #f3ffe6;
+      --muted: #b4d7bc;
+      --dim: #8aaf93;
+      --line: rgba(184, 255, 60, 0.28);
+      --glow: rgba(184, 255, 60, 0.5);
+      --display: "Syne", "Avenir Next", "Segoe UI", sans-serif;
+      --body: "Outfit", "Segoe UI", system-ui, sans-serif;
+      --helix-a: #b8ff3c;
+      --helix-b: #9ef6c8;
+      --helix-bg: rgba(184, 255, 60, 0.07);
+      --on-lime: #06210f;
     }
-    * { box-sizing: border-box; } html, body { margin: 0; }
-    body { font-family: var(--sans); color: var(--ink); background: var(--bg); line-height: 1.6; }
-    a { color: var(--teal-2); } a:hover { color: var(--teal); }
-    .wrap { width: min(920px, calc(100% - 40px)); margin-inline: auto; }
-    header { background: linear-gradient(160deg, #0f766e 0%, #134e4a 45%, #1e3a5f 100%); color: #ecfdf5; padding: 2.6rem 0 3rem; }
-    header a { color: #ecfdf5; }
-    .eyebrow { letter-spacing: .12em; text-transform: uppercase; font-size: .72rem; font-weight: 700; color: #99f6e4; margin: 0 0 .8rem; }
-    h1 { font-family: var(--serif); font-weight: 600; font-size: clamp(2rem, 5vw, 3rem); letter-spacing: -.02em; line-height: 1.12; margin: 0 0 .8rem; }
-    .lede { max-width: 38rem; color: #d1fae5; font-size: 1.12rem; margin: 0 0 1rem; }
-    .byline { margin: 0 0 1.4rem; color: #a7f3d0; font-size: .95rem; }
-    .badges { display: flex; flex-wrap: wrap; gap: .5rem; }
-    .badge { display: inline-flex; align-items: center; gap: .35rem; text-decoration: none; border-radius: 999px; padding: .45rem .9rem; font-weight: 650; font-size: .88rem; background: #ecfdf5; color: var(--teal-2); }
-    .badge:hover { background: #fff; color: var(--teal); }
-    .badge.ghost { background: transparent; color: #ecfdf5; border: 1px solid rgba(236,253,245,.4); }
-    .badge.ghost:hover { background: rgba(255,255,255,.1); color: #fff; }
-    main { padding: 2.4rem 0 3rem; }
-    h2 { font-family: var(--serif); font-size: 1.55rem; margin: 0 0 .4rem; letter-spacing: -.015em; }
-    .kick { font-size: .75rem; letter-spacing: .1em; text-transform: uppercase; font-weight: 700; color: var(--muted); margin: 0 0 .25rem; }
-    .intro { color: var(--muted); margin: 0 0 1.1rem; }
-    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: .9rem; }
-    .card { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 1.1rem 1.2rem; }
-    .card h3 { margin: 0 0 .35rem; font-size: 1.02rem; }
-    .card p { margin: 0 0 .75rem; color: var(--muted); font-size: .95rem; }
-    .card .badge { background: var(--mint); }
-    .note { background: #ecfdf5; border: 1px solid #99f6e4; border-radius: 12px; padding: .9rem 1.1rem; color: var(--teal-2); margin: 1.4rem 0 0; font-size: .92rem; }
-    footer { border-top: 1px solid var(--line); padding: 1.4rem 0 2.2rem; color: var(--muted); font-size: .88rem; }
-    @media (max-width: 700px) { .grid { grid-template-columns: 1fr; } }
+
+    @media (prefers-color-scheme: light) {
+      :root {
+        --void: #f4ffea;
+        --void-2: #e5f8d4;
+        --panel: #ffffff;
+        --lime: #1f7a00;
+        --lime-2: #278200;
+        --mint: #0c6b3a;
+        --foam: #0b1a10;
+        --text: #0b1a10;
+        --muted: #245c38;
+        --dim: #3c6a4c;
+        --line: rgba(31, 107, 16, 0.3);
+        --glow: rgba(39, 130, 0, 0.25);
+        --helix-a: #2f9a00;
+        --helix-b: #0f7a48;
+        --helix-bg: rgba(47, 154, 0, 0.08);
+        --on-lime: #f4ffea;
+      }
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    html { color-scheme: dark light; }
+    body {
+      font-family: var(--body);
+      background:
+        radial-gradient(900px 520px at 80% -10%, var(--helix-bg), transparent 60%),
+        radial-gradient(700px 480px at -10% 20%, rgba(158, 246, 200, 0.06), transparent 55%),
+        var(--void);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    a { color: var(--lime); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    a:hover { color: var(--lime-2); }
+    a:focus-visible, button:focus-visible {
+      outline: 2px solid var(--lime);
+      outline-offset: 3px;
+    }
+
+    .skip {
+      position: absolute; left: 1rem; top: -3rem;
+      background: var(--lime); color: var(--on-lime);
+      padding: 0.5rem 0.9rem; font-weight: 700; border-radius: 999px; z-index: 20;
+    }
+    .skip:focus { top: 1rem; }
+
+    .wrap { width: min(1120px, calc(100% - 2rem)); margin: 0 auto; }
+
+    header.top {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem; padding: 1.1rem 0 0.4rem; flex-wrap: wrap;
+    }
+    .brand {
+      display: flex; align-items: center; gap: 0.75rem;
+      color: inherit; text-decoration: none; font-family: var(--display);
+      font-weight: 800; letter-spacing: -0.04em; font-size: 1.15rem;
+    }
+    .brand img { width: 42px; height: 42px; border-radius: 12px; box-shadow: 0 0 24px var(--glow); }
+    nav { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+    nav a {
+      color: var(--foam);
+      text-decoration: none;
+      border: 1px solid var(--line);
+      background: color-mix(in srgb, var(--panel) 80%, transparent);
+      padding: 0.4rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+    }
+    nav a:hover {
+      transform: translateY(-2px);
+      border-color: var(--lime);
+      box-shadow: 0 0 0 1px var(--lime), 0 8px 24px var(--glow);
+      background: color-mix(in srgb, var(--lime) 12%, var(--panel));
+    }
+    nav a.primary {
+      background: var(--lime);
+      color: var(--on-lime);
+      border-color: transparent;
+      font-weight: 700;
+    }
+    nav a.primary:hover { background: var(--lime-2); color: var(--on-lime); }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(220px, 0.85fr);
+      gap: 1.5rem;
+      align-items: center;
+      padding: 2.2rem 0 1.5rem;
+      min-height: min(78vh, 720px);
+    }
+    .kicker {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--mint);
+    }
+    .kicker::before {
+      content: ""; width: 1.6rem; height: 2px; background: var(--lime);
+      box-shadow: 0 0 12px var(--glow);
+    }
+    h1 {
+      font-family: var(--display);
+      font-weight: 800;
+      font-size: clamp(3.1rem, 9vw, 7rem);
+      letter-spacing: -0.07em;
+      line-height: 0.9;
+      margin: 0.35rem 0 0.6rem;
+    }
+    h1 span { color: var(--lime); text-shadow: 0 0 40px var(--glow); }
+    .tag {
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: clamp(1.25rem, 2.6vw, 1.85rem);
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      margin: 0 0 1rem;
+      color: var(--mint);
+    }
+    .lede { font-size: 1.08rem; color: var(--muted); max-width: 36rem; margin: 0 0 1.15rem; }
+    .credits { color: var(--dim); font-size: 0.95rem; margin: 0 0 1.4rem; }
+
+    .helix-stage {
+      position: relative;
+      aspect-ratio: 4 / 5;
+      max-height: 640px;
+      margin-inline: auto;
+      width: 100%;
+    }
+    .helix-stage canvas, .helix-stage svg {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+    }
+    .helix-stage::before {
+      content: "";
+      position: absolute; inset: 12%;
+      background: radial-gradient(circle, var(--glow), transparent 68%);
+      filter: blur(8px);
+      animation: pulse 4.5s ease-in-out infinite;
+      pointer-events: none;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 0.45; transform: scale(0.92); }
+      50% { opacity: 1; transform: scale(1); }
+    }
+
+    .path-rule {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--lime), var(--mint), transparent);
+      box-shadow: 0 0 16px var(--glow);
+      margin: 0.5rem 0 2rem;
+      border: 0;
+    }
+
+    h2 {
+      font-family: var(--display);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      font-size: clamp(1.7rem, 3vw, 2.35rem);
+      margin: 0 0 0.5rem;
+      line-height: 1.1;
+    }
+    .section-lead { color: var(--muted); max-width: 42rem; margin: 0 0 1.4rem; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    article.card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 1.15rem;
+      padding: 1.2rem 1.25rem 1.25rem;
+      box-shadow: var(--shadow, 0 16px 40px rgba(0,0,0,.28));
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+    article.card::before {
+      content: "";
+      position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+      background: linear-gradient(180deg, var(--lime), var(--mint));
+    }
+    article.card:hover {
+      transform: translateY(-4px);
+      border-color: var(--lime);
+      box-shadow: 0 0 0 1px var(--lime), 0 18px 40px var(--glow);
+    }
+    .idx {
+      font-family: var(--display);
+      font-weight: 800;
+      color: var(--lime);
+      letter-spacing: -0.04em;
+      font-size: 0.95rem;
+    }
+    article.card h3 {
+      font-family: var(--display);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin: 0.15rem 0 0.45rem;
+      font-size: 1.3rem;
+    }
+    article.card p { margin: 0 0 0.95rem; color: var(--muted); }
+    .chip {
+      display: inline-flex; align-items: center;
+      padding: 0.38rem 0.75rem;
+      border-radius: 999px;
+      background: var(--lime);
+      color: var(--on-lime);
+      font-weight: 700;
+      font-size: 0.85rem;
+      text-decoration: none;
+      margin: 0 0.3rem 0.3rem 0;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+    .chip:hover { transform: translateY(-2px); box-shadow: 0 8px 20px var(--glow); color: var(--on-lime); }
+    .chip.ghost {
+      background: transparent;
+      color: var(--foam);
+      border: 1px solid var(--line);
+    }
+    .chip.ghost:hover { border-color: var(--lime); color: var(--text); }
+
+    .note, .callout {
+      margin: 1.2rem 0 0;
+      padding: 1rem 1.15rem;
+      border-radius: 1rem;
+      border: 1px solid var(--line);
+      background: color-mix(in srgb, var(--lime) 8%, var(--panel));
+      color: var(--muted);
+    }
+    .callout strong { color: var(--text); }
+
+    footer {
+      margin-top: 3rem;
+      padding: 1.5rem 0 2.4rem;
+      border-top: 1px solid var(--line);
+      color: var(--dim);
+      font-size: 0.92rem;
+    }
+
+    @media (max-width: 800px) {
+      .hero { grid-template-columns: 1fr; min-height: auto; padding-top: 1.4rem; }
+      .helix-stage { max-height: 360px; aspect-ratio: 1 / 1; width: min(100%, 360px); }
+      .grid { grid-template-columns: 1fr; }
+      h1 { font-size: clamp(2.7rem, 17vw, 4.2rem); }
+      h1 span { display: block; }
+      .kicker { letter-spacing: 0.1em; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+      .helix-stage::before { opacity: 0.7; filter: none; }
+    }
   </style>
 </head>
 <body>
-  <header>
-    <div class="wrap">
-      <p class="eyebrow">Hugging Face MCP 1st Birthday Hackathon &middot; November 2025</p>
-      <h1>HealixPath</h1>
-      <p class="lede">An AI-powered persona storytelling engine. It turns a product, a problem, or a journey stage into structured stories for the people who will actually use the work.</p>
-      <p class="byline">Mackenzie O&rsquo;Brien, Mac Labs AI, and co-author DevRubenArevalo. Team Healix.</p>
-      <div class="badges">
-        <a class="badge" href="https://huggingface.co/spaces/MCP-1st-Birthday/TeamHealix">Hackathon Space</a>
-        <a class="badge" href="https://huggingface.co/spaces/mackenzietechdocs/HealixPath">Live Space</a>
-        <a class="badge ghost" href="https://huggingface.co/collections/mackenzietechdocs/healixpath">Collection</a>
-        <a class="badge ghost" href="https://github.com/mso-docs/HealixPath">GitHub</a>
-        <a class="badge ghost" href="https://youtu.be/zz5AliukXKk">Demo video</a>
+  <a class="skip" href="#artifacts">Skip to artifacts</a>
+  <div class="wrap">
+    <header class="top">
+      <a class="brand" href="./">
+        <img src="assets/healix-mark.svg" width="42" height="42" alt="">
+        HealixPath
+      </a>
+      <nav aria-label="Project links">
+        <a class="primary" href="https://huggingface.co/spaces/mackenzietechdocs/HealixPath">Live Space</a>
+        <a href="https://huggingface.co/spaces/MCP-1st-Birthday/TeamHealix">Hackathon Space</a>
+        <a href="https://huggingface.co/collections/mackenzietechdocs/healixpath">Collection</a>
+        <a href="https://github.com/mso-docs/HealixPath">GitHub</a>
+        <a href="https://youtu.be/zz5AliukXKk">Demo video</a>
+      </nav>
+    </header>
+
+    <section class="hero" aria-labelledby="title">
+      <div>
+        <p class="kicker">Hugging Face MCP 1st Birthday · November 2025</p>
+        <h1 id="title">Healix<span>Path</span></h1>
+        <p class="tag">Stories that spiral from a persona.</p>
+        <p class="lede">An AI-powered storytelling engine. It turns a product, a problem, or a journey stage into structured stories for the people who will actually use the work. Sign in with Hugging Face on the live Space to run free open models on your own allowance.</p>
+        <p class="credits">Mackenzie O&rsquo;Brien, Mac Labs AI, and co-author <a href="https://huggingface.co/DevRubenArevalo">DevRubenArevalo</a>. Together, Team Healix.</p>
       </div>
-    </div>
-  </header>
-  <main class="wrap">
-    <p class="kick">Every artifact</p>
-    <h2>The submitted version stays frozen. The live Space is the one we keep updating.</h2>
-    <p class="intro">This page is the entry point for the project. The official contest Space is left exactly as it was submitted in November 2025. The live Space is a maintained copy, with Sign in with Hugging Face and open models through Inference Providers.</p>
-    <div class="grid">
-      <article class="card">
-        <h3>Hackathon version, frozen</h3>
-        <p>Official submission to the Hugging Face MCP 1st Birthday Hackathon. Pinned on the event organization. Last updated November 30, 2025, at 6:25 PM Eastern, at commit 2abb07f. It is not overwritten.</p>
-        <a class="badge" href="https://huggingface.co/spaces/MCP-1st-Birthday/TeamHealix">MCP-1st-Birthday/TeamHealix</a>
-      </article>
-      <article class="card">
-        <h3>Updated version</h3>
-        <p>The maintained copy on Mackenzie&rsquo;s Hugging Face account. Generation uses open models and the visitor&rsquo;s own Hugging Face allowance after sign-in.</p>
-        <a class="badge" href="https://huggingface.co/spaces/mackenzietechdocs/HealixPath">mackenzietechdocs/HealixPath</a>
-      </article>
-      <article class="card">
-        <h3>Collection and source</h3>
-        <p>Both Spaces, grouped together, and the GitHub repository for the maintained tree.</p>
-        <a class="badge" href="https://huggingface.co/collections/mackenzietechdocs/healixpath">Collection</a>
-        <a class="badge" href="https://github.com/mso-docs/HealixPath">GitHub</a>
-      </article>
-      <article class="card">
-        <h3>Demo video</h3>
-        <p>A walkthrough of HealixPath, also on Mackenzie&rsquo;s hackathon playlist.</p>
-        <a class="badge" href="https://youtu.be/zz5AliukXKk">Watch on YouTube</a>
-      </article>
-    </div>
-    <p class="note">The official event Space is left untouched. If a GitHub link on this page does not open, the repository may still be private; the Spaces and the collection are public.</p>
-  </main>
-  <footer>
-    <div class="wrap">
+      <div class="helix-stage" aria-hidden="true">
+        <svg id="helix-static" viewBox="0 0 320 400" fill="none"></svg>
+        <canvas id="helix" width="320" height="400" hidden></canvas>
+      </div>
+    </section>
+
+    <hr class="path-rule">
+
+    <main id="artifacts">
+      <h2>Every artifact on one path.</h2>
+      <p class="section-lead">This page is the entry point for the project. The official contest Space is left exactly as it was submitted in November 2025. The live Space is a maintained copy, with Sign in with Hugging Face and open models through Inference Providers.</p>
+      <div class="grid">
+        <article class="card">
+          <div class="idx">01</div>
+          <h3>Hackathon version, frozen</h3>
+          <p>Official submission to the Hugging Face MCP 1st Birthday Hackathon. Pinned on the event organization. Last updated November 30, 2025, at 6:25 PM Eastern, at commit 2abb07f. It is not overwritten.</p>
+          <a class="chip" href="https://huggingface.co/spaces/MCP-1st-Birthday/TeamHealix">MCP-1st-Birthday/TeamHealix</a>
+        </article>
+        <article class="card">
+          <div class="idx">02</div>
+          <h3>Updated version</h3>
+          <p>The maintained copy on Mackenzie&rsquo;s Hugging Face account. Generation uses open models and the visitor&rsquo;s own Hugging Face allowance after sign-in.</p>
+          <a class="chip" href="https://huggingface.co/spaces/mackenzietechdocs/HealixPath">mackenzietechdocs/HealixPath</a>
+        </article>
+        <article class="card">
+          <div class="idx">03</div>
+          <h3>Collection and source</h3>
+          <p>Both Spaces, grouped together, and the GitHub repository for the maintained tree.</p>
+          <a class="chip" href="https://huggingface.co/collections/mackenzietechdocs/healixpath">Collection</a>
+          <a class="chip ghost" href="https://github.com/mso-docs/HealixPath">GitHub</a>
+        </article>
+        <article class="card">
+          <div class="idx">04</div>
+          <h3>Demo video</h3>
+          <p>A walkthrough of HealixPath, also on Mackenzie&rsquo;s hackathon playlist.</p>
+          <a class="chip" href="https://youtu.be/zz5AliukXKk">Watch on YouTube</a>
+        </article>
+      </div>
+      <p class="note">The official event Space is left untouched. If a GitHub link on this page does not open, the repository may still be private; the Spaces and the collection are public.</p>
+      <p class="callout"><strong>Free open models, no paid API key.</strong> On the live Space, click <a href="https://huggingface.co/spaces/mackenzietechdocs/HealixPath">Sign in with Hugging Face</a> and approve the inference-api permission. Each generation uses your own free monthly Inference Providers allowance. Signed-out visitors can browse personas; generation asks you to sign in.</p>
+    </main>
+
+    <footer>
       <p>Mackenzie O&rsquo;Brien, Mac Labs AI, and DevRubenArevalo. Submission to the Hugging Face MCP 1st Birthday Hackathon, November 2025.</p>
-      <p>No analytics, cookies, or third-party requests except the links you click.</p>
-    </div>
-  </footer>
+      <p>No analytics, cookies, or third-party requests except the links you click. Display type is Syne; body type is Outfit, both self-hosted under the SIL Open Font License.</p>
+    </footer>
+  </div>
+  <script>
+    (function () {
+      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const lime = getComputedStyle(document.documentElement).getPropertyValue("--helix-a").trim() || "#b8ff3c";
+      const mint = getComputedStyle(document.documentElement).getPropertyValue("--helix-b").trim() || "#9ef6c8";
+
+      function points(width, height, phase) {
+        const a = [], b = [];
+        const cx = width / 2, amp = width * 0.28, y0 = 16, y1 = height - 16, turns = 1.55, n = 220;
+        for (let i = 0; i <= n; i++) {
+          const t = i / n;
+          const y = y0 + t * (y1 - y0);
+          const ph = phase + t * turns * Math.PI * 2;
+          a.push([cx + amp * Math.sin(ph), y]);
+          b.push([cx + amp * Math.sin(ph + Math.PI), y]);
+        }
+        return [a, b];
+      }
+
+      function rungsOf(a, b, count) {
+        const out = [];
+        for (let i = 0; i < count; i++) {
+          const t = 0.1 + (0.8 * i) / (count - 1);
+          const idx = Math.round(t * (a.length - 1));
+          const p = a[idx], q = b[idx];
+          if (Math.abs(p[1] - q[1]) < 0.01 && Math.abs(p[0] - q[0]) < 14) continue;
+          out.push({ p, q, front: p[0] > q[0] });
+        }
+        return out;
+      }
+
+      function drawStatic() {
+        const svg = document.getElementById("helix-static");
+        const [a, b] = points(320, 400, 0.2);
+        const d = (pts) => "M" + pts.map((p, i) => (i ? "L" : "") + p[0].toFixed(1) + "," + p[1].toFixed(1)).join(" ");
+        const rung = rungsOf(a, b, 11).map((r) => {
+          const c = r.front ? lime : mint;
+          const o = r.front ? 1 : 0.45;
+          return '<line x1="'+r.p[0].toFixed(1)+'" y1="'+r.p[1].toFixed(1)+'" x2="'+r.q[0].toFixed(1)+'" y2="'+r.q[1].toFixed(1)+'" stroke="'+c+'" stroke-width="'+(r.front?3.2:2)+'" stroke-linecap="round" opacity="'+o+'"/>'
+            + '<circle cx="'+r.p[0].toFixed(1)+'" cy="'+r.p[1].toFixed(1)+'" r="3.2" fill="'+c+'" opacity="'+o+'"/>'
+            + '<circle cx="'+r.q[0].toFixed(1)+'" cy="'+r.q[1].toFixed(1)+'" r="3.2" fill="'+(r.front?mint:lime)+'" opacity="'+o+'"/>';
+        }).join("");
+        svg.innerHTML = '<path d="'+d(a)+'" stroke="'+lime+'" stroke-width="6" stroke-linecap="round"/>'
+          + '<path d="'+d(b)+'" stroke="'+mint+'" stroke-width="6" stroke-linecap="round"/>' + rung;
+      }
+
+      function startCanvas() {
+        const canvas = document.getElementById("helix");
+        const svg = document.getElementById("helix-static");
+        const ctx = canvas.getContext("2d");
+        svg.setAttribute("hidden", "");
+        canvas.removeAttribute("hidden");
+
+        function frame(now) {
+          const rect = canvas.getBoundingClientRect();
+          const dpr = window.devicePixelRatio || 1;
+          const w = Math.max(1, Math.floor(rect.width)), h = Math.max(1, Math.floor(rect.height));
+          if (canvas.width !== w * dpr || canvas.height !== h * dpr) {
+            canvas.width = w * dpr; canvas.height = h * dpr;
+          }
+          ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+          ctx.clearRect(0, 0, w, h);
+          const phase = now / 1400;
+          const [a, b] = points(w, h, phase);
+          const rungs = rungsOf(a, b, 12);
+          function stroke(pts, color, width) {
+            ctx.beginPath();
+            pts.forEach((p, i) => i ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]));
+            ctx.strokeStyle = color; ctx.lineWidth = width; ctx.lineCap = "round";
+            ctx.shadowColor = color; ctx.shadowBlur = 16; ctx.stroke();
+            ctx.shadowBlur = 0;
+          }
+          rungs.filter((r) => !r.front).forEach((r) => {
+            ctx.beginPath(); ctx.moveTo(r.p[0], r.p[1]); ctx.lineTo(r.q[0], r.q[1]);
+            ctx.strokeStyle = mint; ctx.globalAlpha = 0.4; ctx.lineWidth = 2; ctx.stroke(); ctx.globalAlpha = 1;
+          });
+          stroke(a, lime, 5);
+          stroke(b, mint, 5);
+          rungs.filter((r) => r.front).forEach((r) => {
+            ctx.beginPath(); ctx.moveTo(r.p[0], r.p[1]); ctx.lineTo(r.q[0], r.q[1]);
+            ctx.strokeStyle = lime; ctx.lineWidth = 3; ctx.lineCap = "round"; ctx.stroke();
+            ctx.fillStyle = lime; ctx.beginPath(); ctx.arc(r.p[0], r.p[1], 3.3, 0, Math.PI * 2); ctx.fill();
+            ctx.fillStyle = mint; ctx.beginPath(); ctx.arc(r.q[0], r.q[1], 3.3, 0, Math.PI * 2); ctx.fill();
+          });
+          requestAnimationFrame(frame);
+        }
+        requestAnimationFrame(frame);
+      }
+
+      drawStatic();
+      if (!reduce) startCanvas();
+    })();
+  </script>
 </body>
 </html>

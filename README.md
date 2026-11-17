@@ -1,8 +1,8 @@
 ---
 title: HealixPath
-emoji: 💚
-colorFrom: green
-colorTo: blue
+emoji: 🧬
+colorFrom: lime
+colorTo: green
 sdk: gradio
 sdk_version: 5.49.1
 app_file: app.py
@@ -21,27 +21,41 @@ tags:
     - storytelling
 ---
 
-# HealixPath — The AI-Powered Persona Path & Story Engine
+<p align="center">
+  <img src="docs/assets/healix-banner.svg" alt="HealixPath — stories that spiral from a persona" width="100%">
+</p>
 
-✨ HealixPath transforms product inputs, personas, problems, and customer journey stages into rich, structured, realistic stories. Use this exact package for your MCP server, repo, and hackathon pitch.
+<p align="center">
+  <a href="https://huggingface.co/spaces/mackenzietechdocs/HealixPath"><img src="https://img.shields.io/badge/Live%20Space-b8ff3c?style=for-the-badge&labelColor=050805" alt="Live Space"></a>
+  <a href="https://huggingface.co/spaces/MCP-1st-Birthday/TeamHealix"><img src="https://img.shields.io/badge/Hackathon%20Space-frozen-9ef6c8?style=for-the-badge&labelColor=050805" alt="Hackathon Space, frozen"></a>
+  <a href="https://huggingface.co/collections/mackenzietechdocs/healixpath"><img src="https://img.shields.io/badge/Collection-healixpath-b8ff3c?style=for-the-badge&labelColor=050805" alt="Collection"></a>
+  <a href="https://mso-docs.github.io/HealixPath/"><img src="https://img.shields.io/badge/Project%20page-d4ff6b?style=for-the-badge&labelColor=050805" alt="Project page"></a>
+  <a href="https://github.com/mso-docs/HealixPath"><img src="https://img.shields.io/badge/GitHub-mso--docs%2FHealixPath-9ef6c8?style=for-the-badge&labelColor=050805&logo=github&logoColor=b8ff3c" alt="GitHub"></a>
+  <a href="https://youtu.be/zz5AliukXKk"><img src="https://img.shields.io/badge/Demo%20video-YouTube-ff3c3c?style=for-the-badge&labelColor=050805&logo=youtube&logoColor=white" alt="Demo video"></a>
+  <a href="#sign-in-with-hugging-face-free-ai-no-api-key"><img src="https://img.shields.io/badge/Sign%20in-free%20open%20models-b8ff3c?style=for-the-badge&labelColor=050805" alt="Sign in, free open models"></a>
+  <img src="https://img.shields.io/badge/License-MIT-9ef6c8?style=for-the-badge&labelColor=050805" alt="MIT License">
+</p>
 
-## About The Team
+# HealixPath
 
-HealixPath was built by **Mackenzie O'Brien** ([@mackenzietechdocs](https://huggingface.co/mackenzietechdocs), [GitHub](https://github.com/mso-docs)) and **co-author @DevRubenArevalo** ([Hugging Face](https://huggingface.co/DevRubenArevalo), [GitHub](https://github.com/DevRubenArevalo)). Together we are Team Healix, a two-person dev team looking to make robust AI applications for everyone.
+**Stories that spiral from a persona.** HealixPath is an AI-powered storytelling engine that turns a product, a problem, or a journey stage into structured, realistic narratives for the people who will actually use the work.
 
-The official November 2025 hackathon submission lives at [MCP-1st-Birthday/TeamHealix](https://huggingface.co/spaces/MCP-1st-Birthday/TeamHealix) and is kept unchanged. This Space is the live, maintained copy.
+Built by **Mackenzie O'Brien** ([@mackenzietechdocs](https://huggingface.co/mackenzietechdocs), [GitHub](https://github.com/mso-docs)) and **co-author @DevRubenArevalo** ([Hugging Face](https://huggingface.co/DevRubenArevalo), [GitHub](https://github.com/DevRubenArevalo)). Together we are Team Healix.
 
-- **Project page:** [mso-docs.github.io/HealixPath](https://mso-docs.github.io/HealixPath/)
-- **Hackathon Space (frozen):** [MCP-1st-Birthday/TeamHealix](https://huggingface.co/spaces/MCP-1st-Birthday/TeamHealix)
-- **Live Space:** [mackenzietechdocs/HealixPath](https://huggingface.co/spaces/mackenzietechdocs/HealixPath)
-- **Collection:** [HealixPath](https://huggingface.co/collections/mackenzietechdocs/healixpath)
-- **GitHub:** [mso-docs/HealixPath](https://github.com/mso-docs/HealixPath)
-- **Demo video:** [youtu.be/zz5AliukXKk](https://youtu.be/zz5AliukXKk)
+The official November 2025 hackathon submission lives at [MCP-1st-Birthday/TeamHealix](https://huggingface.co/spaces/MCP-1st-Birthday/TeamHealix) and is kept unchanged. This repository and the live Space are the maintained copy.
 
+| | |
+| :--- | :--- |
+| **Project page** | [mso-docs.github.io/HealixPath](https://mso-docs.github.io/HealixPath/) |
+| **Hackathon Space (frozen)** | [MCP-1st-Birthday/TeamHealix](https://huggingface.co/spaces/MCP-1st-Birthday/TeamHealix) |
+| **Live Space** | [mackenzietechdocs/HealixPath](https://huggingface.co/spaces/mackenzietechdocs/HealixPath) |
+| **Collection** | [HealixPath](https://huggingface.co/collections/mackenzietechdocs/healixpath) |
+| **GitHub** | [mso-docs/HealixPath](https://github.com/mso-docs/HealixPath) |
+| **Demo video** | [youtu.be/zz5AliukXKk](https://youtu.be/zz5AliukXKk) |
 
 ## Sign in with Hugging Face (free AI, no API key)
 
-This live copy no longer uses any paid API key. Text generation runs on open models through [Hugging Face Inference Providers](https://huggingface.co/docs/inference-providers), using **your own** Hugging Face account:
+This live copy does not use any paid API key. Text generation runs on open models through [Hugging Face Inference Providers](https://huggingface.co/docs/inference-providers), using **your own** Hugging Face account:
 
 1. Click **Sign in with Hugging Face** at the top of the app and approve the `inference-api` permission.
 2. Generate stories, journeys, and personas. Each request is billed to your account's free monthly Inference Providers allowance. If you run out, Hugging Face will tell you; PRO accounts get a larger allowance.
@@ -53,14 +67,10 @@ Model: [`openai/gpt-oss-20b`](https://huggingface.co/openai/gpt-oss-20b) (open w
 
 **Running locally:** `pip install -r requirements.txt && python app.py`. Local OAuth sign-in needs a Space; the app does not read `HF_TOKEN`. Duplicate the Space to your account to get your own copy with sign-in enabled.
 
+## Posts and video
 
-## The Posts
-
-Check out our social posts [here](https://www.linkedin.com/feed/update/urn:li:activity:7401032353361477633/) and [here](https://www.linkedin.com/posts/mackenzieoc_mcp1stbirthday-hackathon-huggingface-activity-7395261430117060608-CLZA?utm_source=share&utm_medium=member_desktop&rcm=ACoAACWYuygBMootqeGy7VYKkdnEkHoEuI5canU).
-
-### The Video
-
-Check out our demo video [here](https://youtu.be/zz5AliukXKk)!
+- LinkedIn: [announcement](https://www.linkedin.com/feed/update/urn:li:activity:7401032353361477633/) and [hackathon post](https://www.linkedin.com/posts/mackenzieoc_mcp1stbirthday-hackathon-huggingface-activity-7395261430117060608-CLZA)
+- Demo video: [youtu.be/zz5AliukXKk](https://youtu.be/zz5AliukXKk)
 
 ---
 
