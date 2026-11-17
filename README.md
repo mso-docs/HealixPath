@@ -21,9 +21,11 @@ tags:
     - storytelling
 ---
 
-<p align="center">
-  <img src="docs/assets/healix-banner.svg" alt="HealixPath — stories that spiral from a persona" width="100%">
-</p>
+<div align="center">
+
+![HealixPath — stories that spiral from a persona](docs/assets/healix-banner.png)
+
+</div>
 
 <p align="center">
   <a href="https://huggingface.co/spaces/mackenzietechdocs/HealixPath"><img src="https://img.shields.io/badge/Live%20Space-b8ff3c?style=for-the-badge&labelColor=050805" alt="Live Space"></a>
